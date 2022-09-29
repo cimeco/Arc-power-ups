@@ -1,58 +1,105 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+// var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+import _interopRequireDefault from '@babel/runtime/helpers/interopRequireDefault';
 
-Object.defineProperty(exports, "__esModule", {
-value: true
-});
+// Object.defineProperty(exports, "__esModule", {
+// value: true
+// });
 
-exports.whenAvailable = exports.sendMessage = exports.getKey = exports.parseQueryString = void 0;
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-var _lodash = _interopRequireDefault(require("lodash.get"));
+// exports.whenAvailable = exports.sendMessage = exports.getKey = exports.parseQueryString = void 0;
+var _defineProperty2 = _interopRequireDefault("@babel/runtime/helpers/defineProperty");
+var _slicedToArray2 = _interopRequireDefault("@babel/runtime/helpers/slicedToArray");
+var _lodash = _interopRequireDefault("lodash");
 
-var getKey = function getKey() {
-   var pageURL = new URL((0, _lodash["default"])(window, 'location.href', ''));
-   var searchParams = pageURL.searchParams;
-   var keyResult = searchParams.get('k');
+export var parseQueryString = function parseQueryString() {
+    var locationHref = (0, _lodash["default"])(window, 'location.href', null);
 
-   if (keyResult) {
-       return keyResult;
-   }
+    if (!locationHref) {
+        return null;
+    }
 
-   var hash = pageURL.hash;
-   var embedParams = hash.split('?');
-   var embedParamsList = embedParams[1].split('&');
-   var sessionKey = embedParamsList.reduce(function (accumulator, currentValue) {
-       if (currentValue.startsWith('k=')) {
-           var key = currentValue.split('=')[1];
-           return key;
-       }
+    var pageURL = new URL(locationHref);
+    var preHash = {};
+    var postHash = {};
+    var params = pageURL.searchParams;
+    var paramsString = params.toString();
+    var embedParams = paramsString.split('?');
+    var kv = embedParams[0].split('&');
+    preHash = kv.reduce(function (result, item) {
+        var _item$split = item.split('='),
+            _item$split2 = (0, _slicedToArray2["default"])(_item$split, 2),
+            key = _item$split2[0],
+            value = _item$split2[1];
 
-       return accumulator;
+        return Object.assign(result, (0, _defineProperty2["default"])({}, key, value));
+    }, {});
+    var hash = pageURL.hash;
 
-   }, '');
+    if (hash) {
+        embedParams = hash.split('?');
 
-   return sessionKey;
+        if (embedParams.length > 1) {
+            kv = embedParams[1].split('&');
+            postHash = kv.reduce(function (result, item) {
+                var _item$split3 = item.split('='),
+                    _item$split4 = (0, _slicedToArray2["default"])(_item$split3, 2),
+                    key = _item$split4[0],
+                    value = _item$split4[1];
+
+                return Object.assign(result, (0, _defineProperty2["default"])({}, key, value));
+            }, {});
+        }
+    }
+
+    return Object.assign({}, preHash, postHash);
 };
 
-exports.getKey = getKey;
+// exports.parseQueryString = parseQueryString;
 
-var sendMessage = function sendMessage(action, data) {
-   if ((0, _lodash["default"])(window, 'parent', false)) {
-       var messagePayload = {
-           source: 'custom_embed',
-           action: action,
-           data: data,
-           key: getKey()
-       };
 
-       if (action === 'ready') {
-           messagePayload.isAnsRequired = true;
-       }
+ export var getKey = function getKey() {
+    var pageURL = new URL((0, _lodash["default"])(window, 'location.href', ''));
+    var searchParams = pageURL.searchParams;
+    var keyResult = searchParams.get('k');
 
-       window.parent.postMessage(JSON.stringify(messagePayload), '*');
-   }
+    if (keyResult) {
+        return keyResult;
+    }
+
+    var hash = pageURL.hash;
+    var embedParams = hash.split('?');
+    var embedParamsList = embedParams[1].split('&');
+    var sessionKey = embedParamsList.reduce(function (accumulator, currentValue) {
+        if (currentValue.startsWith('k=')) {
+            var key = currentValue.split('=')[1];
+            return key;
+        }
+
+        return accumulator;
+
+    }, '');
+
+    return sessionKey;
 };
 
-exports.sendMessage = sendMessage;
+// exports.getKey = getKey;
+
+export var sendMessage = function sendMessage(action, data) {
+    if ((0, _lodash["default"])(window, 'parent', false)) {
+        var messagePayload = {
+            source: 'custom_embed',
+            action: action,
+            data: data,
+            key: getKey()
+        };
+
+        if (action === 'ready') {
+            messagePayload.isAnsRequired = true;
+        }
+
+        window.parent.postMessage(JSON.stringify(messagePayload), '*');
+    }
+};
+
+// exports.sendMessage = sendMessage;

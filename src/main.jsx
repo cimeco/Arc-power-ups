@@ -4,9 +4,9 @@ import {createBrowserRouter,RouterProvider,Route, createRoutesFromElements} from
 import './index.css'
 import Root from './routes/root'
 import Index from './routes/index'
-import  DatafactorySearch  from './Components/powerups/datafactory/Search'
-import  DatafactoryEdit  from './Components/powerups/datafactory/Edit'
-import  DatafactoryView  from './Components/powerups/datafactory/View'
+import  DatafactorySearch  from './Components/powerups/datafactory/children/Search'
+import  DatafactoryEdit  from './Components/powerups/datafactory/children/Edit'
+import  DatafactoryView  from './Components/powerups/datafactory/children/View'
 
 
 const router = createBrowserRouter(
