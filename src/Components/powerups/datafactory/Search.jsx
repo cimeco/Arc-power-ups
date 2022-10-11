@@ -9,7 +9,7 @@ export const loader = async () => {
 
 const DatafactorySearch = () => {
 
-  const { partidos } = loader()
+  const { partidos } = useLoaderData()
 
   return (
     <div className="text-center">

@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {BrowserRouter,Route,  Routes} from 'react-router-dom'
+import {createBrowserRouter,RouterProvider,Route, createRoutesFromElements} from 'react-router-dom'
 import './index.css'
 import Root from './routes/root'
 import Index from './routes/index'
@@ -11,10 +11,8 @@ import  DatafactoryView, {loader as viewLoader}  from './Components/powerups/dat
 
 
 
-const Router = () => {
-return (
-  <BrowserRouter>
-  <Routes>
+const router = createBrowserRouter(
+  createRoutesFromElements(
     <Route
       path="/powerups"
       element={<Root />}
@@ -26,7 +24,7 @@ return (
           path='datafactory/search'
           element={<DatafactorySearch />}
           errorElement={<ErrorPage />}
-          
+          loader={searchLoader}
         />
         <Route
           path='datafactory/edit'
@@ -35,15 +33,17 @@ return (
         <Route
           path='datafactory/view/:id'
           element={<DatafactoryView />}
-          
+          loader={viewLoader}
         />
         
       {/* </Route> */}
     </Route>
-    </Routes>
-    </BrowserRouter>
-)}
+  )
+);
 
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Router />)
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+)
