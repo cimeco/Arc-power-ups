@@ -26,7 +26,7 @@ return (
           path='datafactory/search'
           element={<DatafactorySearch />}
           errorElement={<ErrorPage />}
-          loader={searchLoader}
+          
         />
         <Route
           path='datafactory/edit'
@@ -35,7 +35,7 @@ return (
         <Route
           path='datafactory/view/:id'
           element={<DatafactoryView />}
-          loader={viewLoader}
+          
         />
         
       {/* </Route> */}
