@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {createBrowserRouter,RouterProvider,Route, createRoutesFromElements} from 'react-router-dom'
+import {BrowserRouter,RouterProvider,Route, createRoutesFromElements} from 'react-router-dom'
 import './index.css'
 import Root from './routes/root'
 import Index from './routes/index'
@@ -11,8 +11,10 @@ import  DatafactoryView, {loader as viewLoader}  from './Components/powerups/dat
 
 
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
+const router = () => {
+return (
+  <BrowserRouter>
+  <Routes>
     <Route
       path="/powerups"
       element={<Root />}
@@ -38,8 +40,9 @@ const router = createBrowserRouter(
         
       {/* </Route> */}
     </Route>
-  )
-);
+    </Routes>
+    </BrowserRouter>
+)}
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
