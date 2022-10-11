@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {BrowserRouter,RouterProvider,Route, createRoutesFromElements} from 'react-router-dom'
+import {BrowserRouter,Route,  Routes} from 'react-router-dom'
 import './index.css'
 import Root from './routes/root'
 import Index from './routes/index'
