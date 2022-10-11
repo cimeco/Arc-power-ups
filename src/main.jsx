@@ -11,7 +11,7 @@ import  DatafactoryView, {loader as viewLoader}  from './Components/powerups/dat
 
 
 
-const router = () => {
+const Router = () => {
 return (
   <BrowserRouter>
   <Routes>
@@ -45,8 +45,5 @@ return (
 )}
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Router />)
