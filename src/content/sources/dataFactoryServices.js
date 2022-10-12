@@ -1,12 +1,17 @@
-import localforage from 'localforage';
+import axios from 'axios';
 import {xmlToJson} from '../../../util/helpers'
+import * as iso88592 from 'iso-8859-2';
 
 export const getPartidos = async () => {
     try {
         const url = 'https://cdnmd.lavoz.com.ar/sites/default/files/Datafactory/deportes.todos.agenda.diaadia.xml'   
     
-        const response = await fetch(url);
-        const xmlString = await response.text();
+        const response = await axios.request({
+            method: 'GET',
+            url: url,
+            responseEncoding: 'binary'
+          });
+        let xmlString = iso88592.decode(response.data.toString('binary'));
         var XmlNode = new DOMParser().parseFromString(xmlString, 'text/xml');
         const result = xmlToJson(XmlNode)
         
@@ -45,12 +50,16 @@ export const getResumen = async (canal) => {
     try {
         const url = `https://feed.datafactory.la/?ppaass=L4V0z&canal=${canal}`
 
-        const response = await fetch(url);
-        const xmlString = await response.text();
+        const response = await axios.request({
+            method: 'GET',
+            url: url,
+            responseEncoding: 'binary'
+          });
+        let xmlString = iso88592.decode(response.data.toString('binary'));
         var XmlNode = new DOMParser().parseFromString(xmlString, 'text/xml');
         const result = xmlToJson(XmlNode)
 
-        return result
+        return result.ficha
 
     } catch (error) {
         console.log(error)
