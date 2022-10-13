@@ -14,18 +14,22 @@ export const getPartidos = async () => {
         let xmlString = iso88592.decode(response.data.toString('binary'));
         var XmlNode = new DOMParser().parseFromString(xmlString, 'text/xml');
         const result = xmlToJson(XmlNode)
+        const partidos = result.fixture.partido
         
-        const arrayPartidos = result.fixture.partido.map( partido => {
-          const objeto = {
-            id: partido.attributes.id,
-            canal: partido.attributes.canal,
-            deporte: partido.attributes.deporte,
-            nombreCampeonato: partido.attributes.nombreCampeonato,
-            estado: partido.estado.attributes ? 'No Iniciado' : partido.estado,
-            local: partido.local,
-            visitante: partido.visitante
+        const arrayPartidos = partidos.map( partido => {
+            const {attributes, local, visitante} = partido
+            const {id, canal, deporte, nombreCampeonato} = attributes
+            const estado = partido.estado.attributes ? 'No Iniciado' : partido.estado
+
+          return {
+            id,
+            canal,
+            deporte,
+            nombreCampeonato,
+            estado,
+            local,
+            visitante
           }
-          return objeto
         })
     
         return arrayPartidos
