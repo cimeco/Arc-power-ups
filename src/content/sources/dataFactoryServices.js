@@ -36,7 +36,7 @@ export const getPartidos = async () => {
         sendMessage("ready", {
             height: document.documentElement.scrollHeight,
         });
-        
+
         return arrayPartidos
     
     } catch (error) {
@@ -74,71 +74,3 @@ export const getResumen = async (canal) => {
     }
 }
 
-// const sendMessage = function (action, data) {
-//     window.parent.postMessage(
-//         JSON.stringify({
-//             source: 'custom_embed',
-//             action,
-//             data,
-//             key: parseQueryString()['k']
-//         }),
-//         '*'
-//     )
-// }
-
-// const parseQueryString = function () {
-//     const params = location.search.split('?')[1] || ''
-//     const kv = params.split('&')
-//     return kv.reduce((result, item) => {
-//         const [key, value] = item.split('=')
-//         return Object.assign(result, {
-//             [key]: value
-//         })
-//     }, {})
-// }
-// const render = () => {
-//     // Show search results to user
-//     const template = document.getElementById('content_template').innerHTML
-//     const container = document.getElementById('search_content');
-//     container.innerHTML = '';
-
-//     for (let i = 0; i < data.length; i++) {
-//         const id = 'row-' + data[i].id;
-//         const html = template
-//             .replace('%title%', data[i].title)
-//             .replace("%image%", data[i].thumbnail_url)
-//             .replace("%item_id%", id);
-//         const element = document.createElement('div')
-//         container.appendChild(element)
-//         element.outerHTML = html
-//         document
-//             .getElementById(id)
-//             .addEventListener('click', handleClick(i))
-//     }
-// }
-
-// const handleClick = index => event => {
-//     const ansCustomEmbed = {
-//         id: data[index].id,
-//         url: data[index].url,
-//     }
-
-//     sendMessage('data', ansCustomEmbed)
-// }
-
-// window.onload = function () {
-//     const parameters = Object.assign(
-//         {
-//             wait: 0
-//         },
-//         parseQueryString()
-//     )
-//     // Emulate wait time
-//     setTimeout(function () {
-//         sendMessage('ready', {
-//             height: document.documentElement.scrollHeight
-//         })
-//     }, Number.parseInt(parameters.wait))
-
-//     getPartidos()
-// }
