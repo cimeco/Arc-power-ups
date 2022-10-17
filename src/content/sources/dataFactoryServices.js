@@ -12,7 +12,7 @@ export const getPartidos = async () => {
             responseEncoding: 'binary'
           });
         let xmlString = iso88592.decode(response.data.toString('binary'));
-        var XmlNode = new DOMParser().parseFromString(xmlString, 'text/xml');
+        const XmlNode = new DOMParser().parseFromString(xmlString, 'text/xml');
         const result = xmlToJson(XmlNode)
         const partidos = result.fixture.partido
         
