@@ -2,13 +2,10 @@ import Match from "../../common/Match";
 import { useLoaderData } from "react-router-dom";
 import { getPartidos } from "../../../content/sources/dataFactoryServices";
 import { useEffect } from "react";
-import { sendMessage } from "../../../../util/powerups/DataFactory/indexSearch";
+// import { sendMessage } from "../../../../util/powerups/DataFactory/indexSearch";
 
 export const loader = async () => {
-  const partidos = await getPartidos();
-  sendMessage("ready", {
-        height: document.documentElement.scrollHeight,
-      });
+  const partidos = await getPartidos();  
   return { partidos };
 };
 

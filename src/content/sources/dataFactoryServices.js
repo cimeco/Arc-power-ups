@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {xmlToJson} from '../../../util/helpers'
 import * as iso88592 from 'iso-8859-2';
+import { sendMessage } from '../../../util/powerups/DataFactory/indexSearch';
 
 export const getPartidos = async () => {
     try {
@@ -30,7 +31,12 @@ export const getPartidos = async () => {
             local,
             visitante
           }
-        })        
+        })
+        
+        sendMessage("ready", {
+            height: document.documentElement.scrollHeight,
+        });
+        
         return arrayPartidos
     
     } catch (error) {
