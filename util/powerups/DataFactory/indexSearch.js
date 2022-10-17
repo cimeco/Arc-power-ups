@@ -1,4 +1,4 @@
-const sendMessage = function (action, data) {
+export const sendMessage = function (action, data) {
     window.parent.postMessage(
       JSON.stringify({
         source: "custom_embed",
@@ -9,8 +9,8 @@ const sendMessage = function (action, data) {
       "*"
     );
   };
+
   
-  exports.sendMessage = sendMessage;
 
   const parseQueryString = function () {
     const params = location.search.split("?")[1] || "";
