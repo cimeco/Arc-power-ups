@@ -11,7 +11,7 @@
 //   };
 
 
-  var sendMessage = function sendMessage(action, data) {
+export const sendMessage = function sendMessage(action, data) {
     if ((window, 'parent', false)) {
         // var messagePayload = {
         //     source: 'custom_embed',
