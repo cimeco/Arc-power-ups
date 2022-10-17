@@ -1,32 +1,32 @@
-// export const sendMessage = function (action, data) {
-//     window.parent.postMessage(
-//       JSON.stringify({
-//         source: "custom_embed",
-//         action,
-//         data,
-//         key: '#SEARCH',
-//       }),
-//       "*"
-//     );
-//   };
+export const sendMessage = function (action, data) {
+    window.parent.postMessage(
+      JSON.stringify({
+        source: "custom_embed",
+        action,
+        data,
+        key: '#SEARCH',
+      }),
+      "*"
+    );
+  };
 
 
-export const sendMessage = function sendMessage(action, data) {
-    // if ((window, 'parent', false)) {
-        var messagePayload = {
-            source: 'custom_embed',
-            action: action,
-            data: data,
-            key: '#SEARCH'
-        };
+// export const sendMessage = function sendMessage(action, data) {
+//     // if ((window, 'parent', false)) {
+//         var messagePayload = {
+//             source: 'custom_embed',
+//             action: action,
+//             data: data,
+//             key: '#SEARCH'
+//         };
 
-        if (action === 'ready') {
-            messagePayload.isAnsRequired = true;
-        }
+//         if (action === 'ready') {
+//             messagePayload.isAnsRequired = true;
+//         }
 
-        window.parent.postMessage(JSON.stringify(messagePayload), '*');
-    // }
-};
+//         window.parent.postMessage(JSON.stringify(messagePayload), '*');
+//     // }
+// };
 
   
 

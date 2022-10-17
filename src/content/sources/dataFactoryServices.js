@@ -33,9 +33,9 @@ export const getPartidos = async () => {
           }
         })
         
-        sendMessage("ready", {
-            height: document.documentElement.scrollHeight,
-        });
+        // sendMessage("ready", {
+        //     height: document.documentElement.scrollHeight,
+        // });
 
         return arrayPartidos
     
