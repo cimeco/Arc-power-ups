@@ -4,7 +4,7 @@ export const sendMessage = function (action, data) {
         source: "custom_embed",
         action,
         data,
-        key: '#SEARCH',
+        key: '',
       }),
       "*"
     );
