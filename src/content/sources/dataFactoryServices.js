@@ -31,12 +31,9 @@ export const getPartidos = async () => {
             local,
             visitante
           }
-        })
-        
-        // sendMessage("ready", {
-        //     height: document.documentElement.scrollHeight,
-        // });
+        })       
 
+        
         return arrayPartidos
     
     } catch (error) {

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { sendMessage } from "../../../../util/powerups/DataFactory/indexSearch";
 
 export const loader = async () => {
-  const partidos = await getPartidos();  
+  const partidos = await getPartidos();   
   return { partidos };
 };
 

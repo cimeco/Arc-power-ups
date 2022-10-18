@@ -4,30 +4,11 @@ export const sendMessage = function (action, data) {
         source: "custom_embed",
         action,
         data,
-        key: '',
+        key: parseQueryString()['k'],
       }),
       "*"
     );
   };
-
-
-// export const sendMessage = function sendMessage(action, data) {
-//     // if ((window, 'parent', false)) {
-//         var messagePayload = {
-//             source: 'custom_embed',
-//             action: action,
-//             data: data,
-//             key: '#SEARCH'
-//         };
-
-//         if (action === 'ready') {
-//             messagePayload.isAnsRequired = true;
-//         }
-
-//         window.parent.postMessage(JSON.stringify(messagePayload), '*');
-//     // }
-// };
-
   
 
   const parseQueryString = function () {
