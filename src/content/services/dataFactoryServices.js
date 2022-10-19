@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {xmlToJson} from '../../../util/helpers'
 import * as iso88592 from 'iso-8859-2';
-import { sendMessage } from '../../../util/powerups/DataFactory/indexSearch';
+import { sendMessage } from '../../../util/powerups';
 
 export const getPartidos = async () => {
     try {

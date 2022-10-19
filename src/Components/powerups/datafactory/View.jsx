@@ -1,26 +1,36 @@
-import { useLoaderData } from "react-router-dom"
-import { getPartido, getResumen } from "../../../content/sources/dataFactoryServices"
+import { getResumen } from "../../../content/services/dataFactoryServices";
+import { useLoaderData } from "react-router-dom";
+import { sendMessage, parseQueryString } from "../../../../util/powerups";
 
-export const loader = async  ({params}) => {
-  const partido = await getPartido(params.id)
-  const resumen = await getResumen(partido.canal)
-  return {partido, resumen}
-}
+export const loader = async () => {
 
-const DatafactoryView = () => {
+  sendMessage("ready", {
+    height: document.documentElement.scrollHeight,
+  });
 
-  const { partido, resumen } = useLoaderData()
+  const parameters = Object.assign({ wait: 0 }, parseQueryString());
+  const data = JSON.parse( decodeURIComponent(parameters.p) );
+  const partido = data.config.partido   
+
+  const resumen = await getResumen(partido.canal);
+
+
+  return { partido, resumen };
+};
+
+const DatafactoryView = () => {  
+
+  const { partido, resumen } = useLoaderData();
   console.log(resumen)
-  const {id, canal, deporte, nombreCampeonato, estado, local, visitante} = partido
-
 
   return (
     <div>
-      <p>Campeonato: {nombreCampeonato}</p>
-      <p>Local: {local}</p>
-      <p>Visitante: {visitante}</p>
-      <p>Estado: {estado}</p>
+      <p>Campeonato: {partido.nombreCampeonato}</p>
+      <p>Local: {partido.local}</p>
+      <p>Visitante: {partido.visitante}</p>
+      <p>Estado: {partido.estado}</p>
+      
     </div>
-  )
-}
-export default DatafactoryView
+  );
+};
+export default DatafactoryView;

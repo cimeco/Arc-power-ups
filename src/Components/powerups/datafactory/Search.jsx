@@ -1,23 +1,22 @@
 import Match from "../../common/Match";
 import { useLoaderData } from "react-router-dom";
-import { getPartidos } from "../../../content/sources/dataFactoryServices";
+import { getPartidos } from "../../../content/services/dataFactoryServices";
 import { useEffect } from "react";
-import { sendMessage } from "../../../../util/powerups/DataFactory/indexSearch";
+import { sendMessage } from "../../../../util/powerups";
 
 export const loader = async () => {
-  const partidos = await getPartidos();   
+  const partidos = await getPartidos();     
   return { partidos };
 };
 
 const DatafactorySearch = () => {
-  //Prueba
+
   useEffect(() => {
     sendMessage("ready", {
       height: document.documentElement.scrollHeight,
     });
   }, []);  
 
-  //Fin prueba
 
   const { partidos } = useLoaderData();
 

@@ -7,7 +7,7 @@ import Index from './routes/index'
 import ErrorPage from './routes/error-page'
 import  DatafactorySearch, {loader as searchLoader} from './Components/powerups/datafactory/Search'
 import  DatafactoryEdit  from './Components/powerups/datafactory/Edit'
-import  DatafactoryView, {loader as viewLoader}  from './Components/powerups/datafactory/View'
+import  DatafactoryView, {loader as viewLoader} from './Components/powerups/datafactory/View'
 
 
 
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
           element={<DatafactoryEdit />}
         />
         <Route
-          path='datafactory/view/:id'
+          path='datafactory/view'
           element={<DatafactoryView />}
           loader={viewLoader}
         />

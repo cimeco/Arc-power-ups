@@ -1,20 +1,19 @@
-import {useNavigate} from 'react-router-dom'
-import { sendMessage } from '../../../util/powerups/DataFactory/indexSearch'
+import { sendMessage, parseQueryString } from '../../../util/powerups'
 
 const Match = ({partido}) => {
 
-  const navigate = useNavigate()
-
-  const {id, canal, deporte, nombreCampeonato, estado, local, visitante} = partido
+  const {deporte, nombreCampeonato, estado, local, visitante} = partido
 
   const handleClick = () => {
     const ansCustomEmbed = {
-        id,
-        url: `/powerups/datafactory/view/${id}`,
-    }
-
-    sendMessage('data', ansCustomEmbed)
-  }
+      id: parseQueryString()['k'],
+      url: 'https://dsj9tz56eff78.cloudfront.net/powerups/datafactory/view',
+      config: {
+        partido
+      },
+    };
+    sendMessage("data", ansCustomEmbed);
+  };
 
   return (
     <tr className="border-b hover:bg-gray-50">
@@ -30,8 +29,7 @@ const Match = ({partido}) => {
             <button
                 type="button"
                 className="bg-blue-600 hover:bg-blue-700 block w-full text-white text-xs p-2 font-bold uppercase mt-3"
-                // onClick={() => navigate(`/powerups/datafactory/view/${id}`)}
-                onClick={() => handleClick}
+                onClick={handleClick}
             >Ver</button>
             
         </td>   
