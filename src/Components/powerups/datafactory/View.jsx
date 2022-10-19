@@ -14,6 +14,15 @@ export const loader = async () => {
 
   const resumen = await getResumen(partido.canal);
 
+  const ansCustomEmbed = {
+    id: parseQueryString()['k'],
+    url: 'https://dsj9tz56eff78.cloudfront.net/powerups/datafactory/view',
+    config: {
+      resumen
+    },
+  };
+  sendMessage("data", ansCustomEmbed);
+
 
   return { partido, resumen };
 };
