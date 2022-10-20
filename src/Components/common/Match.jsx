@@ -1,18 +1,42 @@
 import { sendMessage, parseQueryString } from '../../../util/powerups'
+import { getResumen } from '../../content/services/dataFactoryServices';
 
 const Match = ({partido}) => {
 
-  const {deporte, nombreCampeonato, estado, local, visitante} = partido
+  const {deporte, nombreCampeonato, estado, local, visitante, canal} = partido
 
-  const handleClick = () => {
+  const loaderResumen = async () => {
+    const resumen = await getResumen(canal)
+
+    const arrayEquipo = resumen.fichapartido.equipo.map(equipo => {
+      return equipo.attributes
+    })
+
+    const partidoResumen = {
+      ...partido,
+      attributes: resumen.fichapartido.attributes,
+      equipo: arrayEquipo
+    }
+
+    enviarDatos(partidoResumen)    
+    
+  }
+
+  const enviarDatos = (partido) => {
     const ansCustomEmbed = {
       id: parseQueryString()['k'],
       url: 'https://dsj9tz56eff78.cloudfront.net/powerups/datafactory/view',
       config: {
-        partido
+        partido,
       },
     };
+    console.log(ansCustomEmbed)
     sendMessage("data", ansCustomEmbed);
+  }
+
+  
+  const handleClick = () => {
+    loaderResumen()    
   };
 
   return (

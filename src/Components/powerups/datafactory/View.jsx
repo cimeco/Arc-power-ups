@@ -12,25 +12,16 @@ export const loader = async () => {
   const data = JSON.parse( decodeURIComponent(parameters.p) );
   const partido = data.config.partido   
 
-  const resumen = await getResumen(partido.canal);
-
-  const ansCustomEmbed = {
-    id: parseQueryString()['k'],
-    url: 'https://dsj9tz56eff78.cloudfront.net/powerups/datafactory/view',
-    config: {
-      resumen
-    },
-  };
-  sendMessage("data", ansCustomEmbed);
+  // const resumen = await getResumen(partido.canal); 
 
 
-  return { partido, resumen };
+  return { partido };
 };
 
 const DatafactoryView = () => {  
 
-  const { partido, resumen } = useLoaderData();
-  console.log(resumen)
+  const { partido } = useLoaderData();
+  // console.log(resumen)
 
   return (
     <div>
