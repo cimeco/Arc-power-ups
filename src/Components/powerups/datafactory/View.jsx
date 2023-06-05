@@ -10,15 +10,15 @@ export const loader = async () => {
 
   const parameters = Object.assign({ wait: 0 }, parseQueryString());
   const data = JSON.parse( decodeURIComponent(parameters.p) );
-  const partido = data.config.partido   
+  const partido = data.config.partido
 
-  // const resumen = await getResumen(partido.canal); 
+  // const resumen = await getResumen(partido.canal);
 
 
   return { partido };
 };
 
-const DatafactoryView = () => {  
+const DatafactoryView = () => {
 
   const { partido } = useLoaderData();
   // console.log(resumen)
@@ -29,7 +29,7 @@ const DatafactoryView = () => {
       <p>Local: {partido.local}</p>
       <p>Visitante: {partido.visitante}</p>
       <p>Estado: {partido.estado}</p>
-      
+
     </div>
   );
 };

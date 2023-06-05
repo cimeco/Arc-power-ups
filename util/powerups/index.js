@@ -10,7 +10,6 @@ export const sendMessage = function (action, data) {
   );
 };
 
-
 export const parseQueryString = function () {
   const params = location.search.split("?")[1] || "";
   const kv = params.split("&");
@@ -20,4 +19,29 @@ export const parseQueryString = function () {
       [key]: value,
     });
   }, {});
+};
+
+export const getKey = function getKey() {
+  var pageURL = new URL((0, _lodash["default"])(window, 'location.href', ''));
+  var searchParams = pageURL.searchParams;
+  var keyResult = searchParams.get('k');
+
+  if (keyResult) {
+      return keyResult;
+  }
+
+  var hash = pageURL.hash;
+  var embedParams = hash.split('?');
+  var embedParamsList = embedParams[1].split('&');
+  var sessionKey = embedParamsList.reduce(function (accumulator, currentValue) {
+      if (currentValue.startsWith('k=')) {
+          var key = currentValue.split('=')[1];
+          return key;
+      }
+
+      return accumulator;
+
+  }, '');
+
+  return sessionKey;
 };
