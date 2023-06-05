@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
-import { getKey, parseQueryString, sendMessage } from '../../../../util/powerups';
+import { parseQueryString, sendMessage } from '../../../../util/powerups';
 import ReactDatePicker from 'react-datepicker';
 
 export const loader = async () => {
@@ -11,30 +11,30 @@ export const loader = async () => {
 
   const parameters = Object.assign({ wait: 0 }, parseQueryString());
   const data = JSON.parse( decodeURIComponent(parameters.p) );
-  const partido = data.config.partido
+  const liveblog = data.config.liveblog
 
   // const resumen = await getResumen(partido.canal);
 
 
-  return { partido };
+  return { liveblog };
 };
 
 const LiveblogEdit = () => {
   const { liveblog } = useLoaderData();
-  const [titulo, setTitulo] = useState(liveblog?.titulo)
-  const [startDate, setStartDate] = useState(new Date(liveblog.fecha))
+  const [title, setTitle] = useState(liveblog?.title)
+  const [startDate, setStartDate] = useState(new Date(liveblog.date))
 
   const guardarDatos = (e) => {
     e.preventDefault();
 
     const liveblog = {
-      titulo: titulo,
-      fecha: startDate
+      title: title,
+      date: startDate
     }
 
     const ansCustomEmbed = {
       id: parseQueryString()['k'],
-      url: 'https://dsj9tz56eff78.cloudfront.net/powerups/datafactory/view',
+      url: 'https://dsj9tz56eff78.cloudfront.net/powerups/liveblog/view',
       config: {
         liveblog,
       },
@@ -58,8 +58,8 @@ const LiveblogEdit = () => {
           id="username"
           type="text"
           placeholder="Titulo"
-          onChange={(e)=>setTitulo(e.target.value)}
-          value={titulo}
+          onChange={(e)=>setTitle(e.target.value)}
+          value={title}
         />
       </div>
       <div className="mb-4">
@@ -76,7 +76,7 @@ const LiveblogEdit = () => {
         />
       </div>
       <div className="flex items-center justify-between">
-        <button disabled={!titulo} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+        <button disabled={!title} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Guardar
         </button>
       </div>

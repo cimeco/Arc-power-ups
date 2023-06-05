@@ -8,19 +8,19 @@ import "react-datepicker/dist/react-datepicker.css";
 const LiveblogSearch = () => {
   registerLocale('es', es)
   const [startDate, setStartDate] = useState(new Date());
-  const [titulo, setTitulo] = useState('');
+  const [title, setTitulo] = useState('');
 
   const guardarDatos = (e) => {
     e.preventDefault();
 
     const liveblog = {
-      titulo: titulo,
-      fecha: startDate
+      title: title,
+      date: startDate
     }
 
     const ansCustomEmbed = {
       id: parseQueryString()['k'],
-      url: 'https://dsj9tz56eff78.cloudfront.net/powerups/datafactory/view',
+      url: 'https://dsj9tz56eff78.cloudfront.net/powerups/liveblog/view',
       config: {
         liveblog,
       },
@@ -62,7 +62,7 @@ const LiveblogSearch = () => {
         />
       </div>
       <div className="flex items-center justify-between">
-        <button disabled={!titulo} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+        <button disabled={!title} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Guardar
         </button>
       </div>

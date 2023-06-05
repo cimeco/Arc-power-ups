@@ -27,8 +27,8 @@ const LiveblogView = () => {
 
   return (
     <div>
-      <p>Titulo: {liveblog.titulo}</p>
-      <p>Fecha: {formatter.format(new Date(liveblog.fecha))}</p>
+      <p>Titulo: {liveblog.title}</p>
+      <p>Fecha: {formatter.format(new Date(liveblog.date))}</p>
     </div>
   );
 };

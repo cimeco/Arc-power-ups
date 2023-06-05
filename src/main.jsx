@@ -9,7 +9,7 @@ import  DatafactoryEdit  from './Components/powerups/datafactory/Edit'
 import  DatafactoryView, {loader as viewLoader} from './Components/powerups/datafactory/View'
 import LiveblogSearch from './Components/powerups/liveblog/Search'
 import LiveblogView, {loader as liveblogViewLoader} from './Components/powerups/liveblog/View'
-import LiveblogEdit from './Components/powerups/liveblog/Edit'
+import LiveblogEdit, {loader as liveblogEditLoader} from './Components/powerups/liveblog/Edit'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,7 +41,7 @@ const router = createBrowserRouter(
         <Route
           path='liveblog/edit'
           element={<LiveblogEdit />}
-          loader={liveblogViewLoader}
+          loader={liveblogEditLoader}
         />
         <Route
           path='liveblog/view'
