@@ -54,7 +54,7 @@ const LiveblogSearch = () => {
         </label>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(`${date}`)}
+          onChange={(date) => setStartDate(date)}
           timeInputLabel="Time:"
           dateFormat="MM/dd/yyyy h:mm aa"
           showTimeInput

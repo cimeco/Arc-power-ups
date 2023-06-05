@@ -13,13 +13,11 @@ export const loader = async () => {
   const data = JSON.parse( decodeURIComponent(parameters.p) );
   const liveblog = data.config.liveblog
 
-  // const resumen = await getResumen(partido.canal);
-
-
   return { liveblog };
 };
 
 const LiveblogEdit = () => {
+  registerLocale('es', es)
   const { liveblog } = useLoaderData();
   const [title, setTitle] = useState(liveblog?.title)
   const [startDate, setStartDate] = useState(new Date(liveblog.date))
