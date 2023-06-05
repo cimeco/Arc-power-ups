@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { parseQueryString, sendMessage } from '../../../../util/powerups';
-import ReactDatePicker from 'react-datepicker';
+import ReactDatePicker, { registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es';
 
 export const loader = async () => {
 
@@ -13,13 +14,11 @@ export const loader = async () => {
   const data = JSON.parse( decodeURIComponent(parameters.p) );
   const liveblog = data.config.liveblog
 
-  // const resumen = await getResumen(partido.canal);
-
-
   return { liveblog };
 };
 
 const LiveblogEdit = () => {
+  registerLocale('es', es)
   const { liveblog } = useLoaderData();
   const [title, setTitle] = useState(liveblog?.title)
   const [startDate, setStartDate] = useState(new Date(liveblog.date))
