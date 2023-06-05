@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client'
 import {createBrowserRouter,RouterProvider,Route, createRoutesFromElements} from 'react-router-dom'
 import './index.css'
 import Root from './routes/root'
-import Index from './routes/index'
 import ErrorPage from './routes/error-page'
 import  DatafactorySearch, {loader as searchLoader} from './Components/powerups/datafactory/Search'
 import  DatafactoryEdit  from './Components/powerups/datafactory/Edit'
 import  DatafactoryView, {loader as viewLoader} from './Components/powerups/datafactory/View'
-
-
+import LiveblogSearch from './Components/powerups/liveblog/Search'
+import LiveblogView, {loader as liveblogViewLoader} from './Components/powerups/liveblog/View'
+import LiveblogEdit, {loader as liveblogEditLoader} from './Components/powerups/liveblog/Edit'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,8 +18,6 @@ const router = createBrowserRouter(
       element={<Root />}
       errorElement={<ErrorPage />}
     >
-      {/* <Route errorElement={<ErrorPage />}> */}
-        {/* <Route index element={<Index />} /> */}
         <Route
           path='datafactory/search'
           element={<DatafactorySearch />}
@@ -35,8 +33,21 @@ const router = createBrowserRouter(
           element={<DatafactoryView />}
           loader={viewLoader}
         />
-        
-      {/* </Route> */}
+        <Route
+          path='liveblog/search'
+          element={<LiveblogSearch />}
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path='liveblog/edit'
+          element={<LiveblogEdit />}
+          loader={liveblogEditLoader}
+        />
+        <Route
+          path='liveblog/view'
+          element={<LiveblogView />}
+          loader={liveblogViewLoader}
+        />
     </Route>
   )
 );
