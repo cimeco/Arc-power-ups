@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { parseQueryString, sendMessage } from '../../../../util/powerups';
 import ReactDatePicker, { registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es';
 
 export const loader = async () => {
 
