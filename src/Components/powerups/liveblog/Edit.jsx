@@ -23,12 +23,24 @@ const LiveblogEdit = () => {
   const [title, setTitle] = useState(liveblog?.title)
   const [startDate, setStartDate] = useState(new Date(liveblog.date))
 
-  const guardarDatos = (e) => {
+  const slugify = (text) => {
+    return text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')    // Reemplazar espacios en blanco con guiones
+      .replace(/[^\w-]+/g, '') // Eliminar caracteres no alfanuméricos excepto guiones
+      .replace(/--+/g, '-')    // Reemplazar múltiples guiones consecutivos por uno solo
+      .replace(/^-+|-+$/g, ''); // Eliminar guiones al principio y al final
+  };
+
+  const saveData = (e) => {
     e.preventDefault();
 
+    const titleSlug = slugify(title);
     const liveblog = {
       title: title,
-      date: startDate
+      date: startDate,
+      slug: titleSlug
     }
 
     const ansCustomEmbed = {
@@ -47,7 +59,7 @@ const LiveblogEdit = () => {
 
   return (
     <div className="w-full max-w-lg">
-    <form className="rounded px-8 pt-6 pb-8 mb-4" onSubmit={guardarDatos}>
+    <form className="rounded px-8 pt-6 pb-8 mb-4" onSubmit={saveData}>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
           Titulo
@@ -69,7 +81,7 @@ const LiveblogEdit = () => {
           selected={startDate}
           onChange={(date) => setStartDate(date)}
           timeInputLabel="Time:"
-          dateFormat="MM/dd/yyyy h:mm aa"
+          dateFormat="dd/MM/yyyy h:mm aa"
           showTimeInput
           locale="es"
         />
