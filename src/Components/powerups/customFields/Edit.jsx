@@ -30,7 +30,7 @@ const CustomFieldsEdit = () => {
 
         const ansCustomEmbed = {
         id: parseQueryString()['k'],
-        url: 'https://dsj9tz56eff78.cloudfront.net/powerups/customfields/edit',
+        url: 'https://dsj9tz56eff78.cloudfront.net/powerups/customfields/view',
         config: {
             customfields,
         },

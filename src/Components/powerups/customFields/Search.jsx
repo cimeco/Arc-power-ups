@@ -32,7 +32,7 @@ const CustomFieldsSearch = () => {
     <form onSubmit={saveData} className="max-w-sm mx-auto">
       <div className="mb-4">
         <label htmlFor="text" className="block mb-2 font-bold">
-          Text (nombres, título)
+          Texto (nombres, título)
         </label>
         <input
           type="text"
@@ -44,7 +44,7 @@ const CustomFieldsSearch = () => {
       </div>
       <div className="mb-4">
         <label htmlFor="time" className="block mb-2 font-bold">
-          Time: (duración, tiempo en texto)
+          Tiempo: (duración, tiempo en texto)
         </label>
         <input
           type="text"
