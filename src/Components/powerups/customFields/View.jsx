@@ -20,8 +20,8 @@ const CustomFieldsView = () => {
 
   return (
     <div>
-      <p className="text-base font-semibold">Text: {customDecodeURIComponent(customfields.text)}</p>
-      <p className="text-base font-semibold">Time: {customDecodeURIComponent(customfields.time)}</p>
+      <p className="text-base font-semibold">Texto: {customDecodeURIComponent(customfields.text)}</p>
+      <p className="text-base font-semibold">Tiempo: {customDecodeURIComponent(customfields.time)}</p>
     </div>
   );
 };
