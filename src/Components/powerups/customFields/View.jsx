@@ -10,27 +10,19 @@ export const loader = async () => {
 
   const parameters = Object.assign({ wait: 0 }, parseQueryString());
   const data = JSON.parse( decodeURIComponent(parameters.p) );
-  const liveblog = data.config.liveblog
+  const customfields = data.config.customfields
 
-  return { liveblog };
+  return { customfields };
 };
 
-const LiveblogView = () => {
-  const {liveblog} = useLoaderData();
-  const formatter = new Intl.DateTimeFormat('es-MX',{
-    weekday:'long',
-    month:'long',
-    year:'numeric',
-    day:'numeric',
-    hour:'numeric',
-    minute:'numeric'
-  })
+const CustomFieldsView = () => {
+  const {customfields} = useLoaderData();
 
   return (
     <div>
-      <p>Titulo: {customDecodeURIComponent(liveblog.title)}</p>
-      <p>Fecha: {formatter.format(new Date(liveblog.date))}</p>
+      <p className="text-base font-semibold">Text: {customDecodeURIComponent(customfields.text)}</p>
+      <p className="text-base font-semibold">Time: {customDecodeURIComponent(customfields.time)}</p>
     </div>
   );
 };
-export default LiveblogView;
+export default CustomFieldsView;
