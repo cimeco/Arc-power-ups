@@ -6,7 +6,7 @@
  export function xmlToJson(xml) {
     // Create the return object
     var obj = {};
-  
+
     if (xml.nodeType == 1) {
       // element
       // do attributes
@@ -21,7 +21,7 @@
       // text
       obj = xml.nodeValue;
     }
-  
+
     // do children
     // If all text nodes inside, get concatenated text from them.
     var textNodes = [].slice.call(xml.childNodes).filter(function(node) {

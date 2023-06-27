@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { parseQueryString, sendMessage } from '../../../../util/powerups';
+import { customDecodeURIComponent } from '../../../../util/helpers';
 
 export const loader = async () => {
 
@@ -17,8 +18,8 @@ export const loader = async () => {
 
 const CustomFieldsEdit = () => {
     const { customfields } = useLoaderData();
-    const [text, setText] = useState(customfields?.text);
-    const [time, setTime] = useState(customfields?.time);
+    const [text, setText] = useState(customDecodeURIComponent(customfields?.text));
+    const [time, setTime] = useState(customDecodeURIComponent(customfields?.time));
 
     const saveData = (e) => {
         e.preventDefault();
