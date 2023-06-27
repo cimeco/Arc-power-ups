@@ -10,6 +10,9 @@ import  DatafactoryView, {loader as viewLoader} from './Components/powerups/data
 import LiveblogSearch from './Components/powerups/liveblog/Search'
 import LiveblogView, {loader as liveblogViewLoader} from './Components/powerups/liveblog/View'
 import LiveblogEdit, {loader as liveblogEditLoader} from './Components/powerups/liveblog/Edit'
+import CustomFieldsSearch from './Components/powerups/customFields/Search'
+import CustomFieldsEdit, {loader as customfieldsEditLoader} from './Components/powerups/customFields/Edit'
+import CustomFieldsView, {loader as customfieldsViewLoader} from './Components/powerups/customFields/View'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,10 +51,24 @@ const router = createBrowserRouter(
           element={<LiveblogView />}
           loader={liveblogViewLoader}
         />
+        <Route
+          path='customfields/search'
+          element={<CustomFieldsSearch />}
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path='customfields/edit'
+          element={<CustomFieldsEdit />}
+          loader={customfieldsEditLoader}
+        />
+        <Route
+          path='customfields/view'
+          element={<CustomFieldsView />}
+          loader={customfieldsViewLoader}
+        />
     </Route>
   )
 );
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

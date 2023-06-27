@@ -49,7 +49,10 @@
     }
     return obj;
   }
-  
+
+  export function customDecodeURIComponent(str) {
+    return unescape(str.replace(/\+/g, ' '));
+  }
   /*
   Usage:
   1. If you have an XML file URL:
