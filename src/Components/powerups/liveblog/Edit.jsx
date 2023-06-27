@@ -3,6 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 import { parseQueryString, sendMessage } from '../../../../util/powerups';
 import ReactDatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
+import { customDecodeURIComponent } from '../../../../util/helpers';
 
 export const loader = async () => {
 
@@ -20,7 +21,7 @@ export const loader = async () => {
 const LiveblogEdit = () => {
   registerLocale('es', es)
   const { liveblog } = useLoaderData();
-  const [title, setTitle] = useState(liveblog?.title)
+  const [title, setTitle] = useState(customDecodeURIComponent(liveblog?.title))
   const [startDate, setStartDate] = useState(new Date(liveblog.date))
 
   const slugify = (text) => {
