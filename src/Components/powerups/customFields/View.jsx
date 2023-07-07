@@ -22,6 +22,9 @@ const CustomFieldsView = () => {
     <div>
       <p className="text-base font-semibold">Texto: {customDecodeURIComponent(customfields.text)}</p>
       <p className="text-base font-semibold">Tiempo: {customDecodeURIComponent(customfields.time)}</p>
+      {customfields.slugTag && (
+        <p className="text-base font-semibold">Slug tag: {customDecodeURIComponent(customfields.slugTag)}</p>
+      )}
     </div>
   );
 };

@@ -20,13 +20,15 @@ const CustomFieldsEdit = () => {
     const { customfields } = useLoaderData();
     const [text, setText] = useState(customDecodeURIComponent(customfields?.text));
     const [time, setTime] = useState(customDecodeURIComponent(customfields?.time));
+    const [slugTag, setSlugTag] = useState(customDecodeURIComponent(customfields?.slugTag));
 
     const saveData = (e) => {
         e.preventDefault();
 
         const customfields = {
             text,
-            time
+            time,
+            slugTag
         }
 
         const ansCustomEmbed = {
@@ -62,6 +64,17 @@ const CustomFieldsEdit = () => {
           id="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="time" className="block mb-2 font-bold">
+          Slug tag
+        </label>
+        <input
+          type="text"
+          value={slugTag}
+          onChange={(e) => setSlugTag(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded"
         />
       </div>

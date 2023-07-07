@@ -4,13 +4,15 @@ import { parseQueryString, sendMessage } from '../../../../util/powerups';
 const CustomFieldsSearch = () => {
   const [text, setText] = useState('');
   const [time, setTime] = useState('');
+  const [slugTag, setSlugTag] = useState('')
 
   const saveData = (e) => {
     e.preventDefault();
 
     const customfields = {
       text: text,
-      time: time
+      time: time,
+      slugTag: slugTag
     }
 
     const ansCustomEmbed = {
@@ -51,6 +53,17 @@ const CustomFieldsSearch = () => {
           id="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="time" className="block mb-2 font-bold">
+          Slug tag
+        </label>
+        <input
+          type="text"
+          value={slugTag}
+          onChange={(e) => setSlugTag(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded"
         />
       </div>
