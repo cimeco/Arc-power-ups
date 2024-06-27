@@ -7,16 +7,47 @@ const RecipeSearch = () => {
   const [difficulty, setDifficulty] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
-  const [editIndex, setEditIndex] = useState(null);
+  const [cookHours, setCookHours] = useState(0);
+  const [cookMinutes, setCookMinutes] = useState(0);
+  const [prepHours, setPrepHours] = useState(0);
+  const [prepMinutes, setPrepMinutes] = useState(0);
+  const [keywords, setKeywords] = useState("");
+  const [nutritionCalories, setNutritionCalories] = useState("");
+  const [recipeYield, setRecipeYield] = useState("");
+  const [recipeCategory, setRecipeCategory] = useState("");
+  const [recipeInstructions, setRecipeInstructions] = useState([]);
+  const [newStep, setNewStep] = useState("");
+  const [editIngredientIndex, setEditIngredientIndex] = useState(null);
+  const [editStepIndex, setEditStepIndex] = useState(null);
 
   const saveData = (e) => {
     e.preventDefault();
+
+    const formatDurationISO8601 = (hours, minutes) => {
+      let duration = "PT";
+      if (hours > 0) duration += `${hours}H`;
+      if (minutes > 0) duration += `${minutes}M`;
+      return duration;
+    };
 
     const recipe = {
       duration,
       calories,
       difficulty,
       ingredients,
+      cookTime: formatDurationISO8601(cookHours, cookMinutes),
+      prepTime: formatDurationISO8601(prepHours, prepMinutes),
+      keywords,
+      nutrition: {
+        calories: nutritionCalories,
+      },
+      recipeYield,
+      recipeCategory,
+      recipeInstructions: recipeInstructions.map((step, index) => ({
+        "@type": "HowToStep",
+        name: `Paso ${index + 1}`,
+        text: step,
+      })),
     };
 
     const ansCustomEmbed = {
@@ -31,13 +62,13 @@ const RecipeSearch = () => {
 
   const addIngredient = (e) => {
     e.preventDefault();
-    if (editIndex !== null) {
+    if (editIngredientIndex !== null) {
       setIngredients(
         ingredients.map((ingredient, index) =>
-          index === editIndex ? { item: newIngredient } : ingredient
+          index === editIngredientIndex ? { item: newIngredient } : ingredient
         )
       );
-      setEditIndex(null);
+      setEditIngredientIndex(null);
     } else {
       setIngredients([...ingredients, { item: newIngredient }]);
     }
@@ -47,12 +78,36 @@ const RecipeSearch = () => {
   const editIngredient = (event, index) => {
     event.preventDefault();
     setNewIngredient(ingredients[index].item);
-    setEditIndex(index);
+    setEditIngredientIndex(index);
   };
 
   const removeIngredient = (event, index) => {
     event.preventDefault();
     setIngredients(ingredients.filter((_, i) => i !== index));
+  };
+
+  const addStep = (e) => {
+    e.preventDefault();
+    if (editStepIndex !== null) {
+      const updatedInstructions = [...recipeInstructions];
+      updatedInstructions[editStepIndex] = newStep;
+      setRecipeInstructions(updatedInstructions);
+      setEditStepIndex(null);
+    } else {
+      setRecipeInstructions([...recipeInstructions, newStep]);
+    }
+    setNewStep("");
+  };
+
+  const editStep = (event, index) => {
+    event.preventDefault();
+    setNewStep(recipeInstructions[index]);
+    setEditStepIndex(index);
+  };
+
+  const removeStep = (event, index) => {
+    event.preventDefault();
+    setRecipeInstructions(recipeInstructions.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
@@ -62,33 +117,161 @@ const RecipeSearch = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-lg">
-      <form className="rounded px-8 pt-6 pb-8 mb-4" onSubmit={saveData}>
-        <div className="p-4 flex flex-col space-y-4">
-          <div className="bg-white shadow-md rounded-lg p-4">
-            <div className="flex items-center space-x-2">
-              <span className="font-semibold">Duración:</span>
+    <div className="w-full">
+      <form
+        className="flex rounded px-8 pt-6 pb-8 mb-4 bg-white"
+        onSubmit={saveData}
+      >
+        <div className="w-1/2">
+          <div className="p-4">
+            <div className="flex flex-col space-y-2">
+              <label className="font-semibold">Duración:</label>
               <input
                 className="border rounded-md px-2"
+                value={duration}
                 onChange={(e) => setDuration(e.target.value)}
               />
+              <span className="text-gray-600 text-sm">
+                Tiempo total que toma preparar la receta (incluyendo preparación
+                y cocción).
+              </span>
             </div>
-            <div className="flex items-center space-x-2 mt-2">
-              <span className="font-semibold">Calorías:</span>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Calorías:</label>
               <input
                 className="border rounded-md px-2"
+                value={calories}
                 onChange={(e) => setCalories(e.target.value)}
               />
+              <span className="text-gray-600 text-sm">
+                Número de calorías por porción.
+              </span>
             </div>
-            <div className="flex items-center space-x-2 mt-2">
-              <span className="font-semibold">Dificultad:</span>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Dificultad:</label>
               <input
                 className="border rounded-md px-2"
+                value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
               />
+              <span className="text-gray-600 text-sm">
+                Nivel de dificultad para preparar la receta (fácil, media,
+                difícil).
+              </span>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Tiempo de cocción:</label>
+              <div className="flex space-x-2">
+                <select
+                  className="border rounded-md px-2"
+                  value={cookHours}
+                  onChange={(e) => setCookHours(parseInt(e.target.value))}
+                >
+                  {Array.from({ length: 24 }, (_, i) => (
+                    <option key={i} value={i}>
+                      {i} horas
+                    </option>
+                  ))}
+                </select>
+                <select
+                  className="border rounded-md px-2"
+                  value={cookMinutes}
+                  onChange={(e) => setCookMinutes(parseInt(e.target.value))}
+                >
+                  {Array.from({ length: 60 }, (_, i) => (
+                    <option key={i} value={i}>
+                      {i} minutos
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <span className="text-gray-600 text-sm">
+                Seleccione el tiempo de cocción (horas y minutos).
+              </span>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Tiempo de preparación:</label>
+              <div className="flex space-x-2">
+                <select
+                  className="border rounded-md px-2"
+                  value={prepHours}
+                  onChange={(e) => setPrepHours(parseInt(e.target.value))}
+                >
+                  {Array.from({ length: 24 }, (_, i) => (
+                    <option key={i} value={i}>
+                      {i} horas
+                    </option>
+                  ))}
+                </select>
+                <select
+                  className="border rounded-md px-2"
+                  value={prepMinutes}
+                  onChange={(e) => setPrepMinutes(parseInt(e.target.value))}
+                >
+                  {Array.from({ length: 60 }, (_, i) => (
+                    <option key={i} value={i}>
+                      {i} minutos
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <span className="text-gray-600 text-sm">
+                Seleccione el tiempo de preparación (horas y minutos).
+              </span>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Palabras clave:</label>
+              <input
+                className="border rounded-md px-2"
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+              />
+              <span className="text-gray-600 text-sm">
+                Ingrese otros términos descriptivos de la receta, como la
+                estación ("verano"), el día festivo ("Halloween") y otras
+                palabras que la describen ("rápida", "fácil", "original").
+                Separe cada palabra clave con una coma. No use términos que sean
+                categorías o tipos de cocina.
+              </span>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Calorías por porción:</label>
+              <input
+                className="border rounded-md px-2"
+                value={nutritionCalories}
+                onChange={(e) => setNutritionCalories(e.target.value)}
+              />
+              <span className="text-gray-600 text-sm">
+                Cantidad de calorías en cada porción de la receta.
+              </span>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Porciones que rinde:</label>
+              <input
+                className="border rounded-md px-2"
+                value={recipeYield}
+                onChange={(e) => setRecipeYield(e.target.value)}
+              />
+              <span className="text-gray-600 text-sm">
+                Número de porciones que produce la receta.
+              </span>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              <label className="font-semibold">Categoría de la receta:</label>
+              <input
+                className="border rounded-md px-2"
+                value={recipeCategory}
+                onChange={(e) => setRecipeCategory(e.target.value)}
+              />
+              <span className="text-gray-600 text-sm">
+                Tipo de comida o plato de la receta (cena, plato principal,
+                postre, bocadillo, etc.).
+              </span>
             </div>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-4">
+        </div>
+        <div className="w-1/2">
+          <div className="p-4">
             <h2 className="font-bold">Ingredientes</h2>
             <ul className="list-disc list-inside mt-2">
               {ingredients.map((ingredient, index) => (
@@ -109,21 +292,67 @@ const RecipeSearch = () => {
                 </li>
               ))}
             </ul>
-            <div>
-              <input
-                className="border rounded-md w-72 px-2"
+            <div className="flex items-center space-y-2 mt-4">
+              <textarea
+                className="border rounded-md w-full px-2 py-1"
                 value={newIngredient}
                 onChange={(e) => setNewIngredient(e.target.value)}
+                rows={4}
               />
               <button
                 className="border rounded-md px-2 ml-2 mt-2"
                 onClick={addIngredient}
               >
-                {editIndex !== null ? "Actualizar" : "Agregar"}
+                {editIngredientIndex !== null ? "Actualizar" : "Agregar"}
               </button>
             </div>
+            <span className="text-gray-600 text-sm block mt-2">
+              Ingrese un ingrediente y haga clic en "Agregar" o "Actualizar"
+              para modificar la lista.
+            </span>
           </div>
-          <div className="flex justify-center">
+          <div className="p-4">
+            <h2 className="font-bold">Pasos de la receta</h2>
+            <ul className="list-disc list-inside mt-2">
+              {recipeInstructions.map((step, index) => (
+                <li key={index}>
+                  <span className="font-semibold">Paso {index + 1}:</span>{" "}
+                  {step}
+                  <button
+                    onClick={(e) => editStep(e, index)}
+                    className="text-blue-400 ml-2"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={(e) => removeStep(e, index)}
+                    className="text-red-600 ml-1"
+                  >
+                    Eliminar
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center space-y-2 mt-4">
+              <textarea
+                className="border rounded-md w-full px-2 py-1"
+                value={newStep}
+                onChange={(e) => setNewStep(e.target.value)}
+                rows={4}
+              />
+              <button
+                className="border rounded-md px-2 ml-2 mt-2"
+                onClick={addStep}
+              >
+                {editStepIndex !== null ? "Actualizar" : "Agregar"}
+              </button>
+            </div>
+            <span className="text-gray-600 text-sm block mt-2">
+              Ingrese un paso de la receta y haga clic en "Agregar" o
+              "Actualizar" para modificar la lista.
+            </span>
+          </div>
+          <div className="flex justify-end col-span-2 mt-6">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
