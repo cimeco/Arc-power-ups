@@ -16,53 +16,52 @@ export const loader = async () => {
 
 const RecipeView = () => {
   const { recipe } = useLoaderData();
-  console.log(recipe, "recipe");
 
   return (
     <div className="p-4 flex flex-col space-y-4">
       <div className="bg-white shadow-md rounded-lg p-4">
         <div className="flex items-center space-x-2">
           <span className="font-semibold">Duración:</span>
-          <span>{recipe.duration}</span>
+          <span>{customDecodeURIComponent(recipe.duration)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Calorías:</span>
-          <span>{recipe.calories}</span>
+          <span>{customDecodeURIComponent(recipe.calories)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Dificultad:</span>
-          <span>{recipe.difficulty}</span>
+          <span>{customDecodeURIComponent(recipe.difficulty)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Tiempo de cocción:</span>
-          <span>{recipe.cookTime}</span>
+          <span>{customDecodeURIComponent(recipe.cookTime)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Tiempo de preparación:</span>
-          <span>{recipe.prepTime}</span>
+          <span>{customDecodeURIComponent(recipe.prepTime)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Palabras clave:</span>
-          <span>{recipe.keywords}</span>
+          <span>{customDecodeURIComponent(recipe.keywords)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Calorías por porción:</span>
-          <span>{recipe.nutrition.calories}</span>
+          <span>{customDecodeURIComponent(recipe.nutrition.calories)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Porciones que rinde:</span>
-          <span>{recipe.recipeYield}</span>
+          <span>{customDecodeURIComponent(recipe.recipeYield)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Categoría de la receta:</span>
-          <span>{recipe.recipeCategory}</span>
+          <span>{customDecodeURIComponent(recipe.recipeCategory)}</span>
         </div>
       </div>
       <div className="bg-white shadow-md rounded-lg p-4">
         <h2 className="font-bold">Ingredientes</h2>
         <ul className="list-disc list-inside mt-2">
           {recipe.ingredients.map((item, index) => (
-            <li key={index}>{item.item}</li>
+            <li key={index}>{customDecodeURIComponent(item.item)}</li>
           ))}
         </ul>
       </div>
@@ -71,7 +70,10 @@ const RecipeView = () => {
         <ol className="list-decimal list-inside mt-2">
           {recipe.recipeInstructions.map((step, index) => (
             <li key={index}>
-              <span className="font-semibold">{step.name}:</span> {step.text}
+              <span className="font-semibold">
+                {customDecodeURIComponent(step.name)}:
+              </span>{" "}
+              {customDecodeURIComponent(step.text)}
             </li>
           ))}
         </ol>
