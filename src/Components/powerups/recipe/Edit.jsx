@@ -46,12 +46,12 @@ const RecipeEdit = () => {
     customDecodeURIComponent(recipe.recipeCategory)
   );
   const [ingredients, setIngredients] = useState(
-    customDecodeURIComponent(recipe.ingredients)
+    recipe.ingredients
   );
   const [newIngredient, setNewIngredient] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [recipeInstructions, setRecipeInstructions] = useState(
-    customDecodeURIComponent(recipe.recipeInstructions)
+    recipe.recipeInstructions
   );
   const [newStep, setNewStep] = useState("");
 
