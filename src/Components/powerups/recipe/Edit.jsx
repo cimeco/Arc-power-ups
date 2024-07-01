@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { parseQueryString, sendMessage } from "../../../../util/powerups";
+import { customDecodeURIComponent } from "../../../../util/helpers";
 
 export const loader = async () => {
   sendMessage("ready", {
@@ -17,22 +18,40 @@ export const loader = async () => {
 const RecipeEdit = () => {
   const { recipe } = useLoaderData();
 
-  const [duration, setDuration] = useState(recipe.duration);
-  const [calories, setCalories] = useState(recipe.calories);
-  const [difficulty, setDifficulty] = useState(recipe.difficulty);
-  const [cookTime, setCookTime] = useState(recipe.cookTime);
-  const [prepTime, setPrepTime] = useState(recipe.prepTime);
-  const [keywords, setKeywords] = useState(recipe.keywords);
-  const [nutritionCalories, setNutritionCalories] = useState(
-    recipe.nutrition.calories
+  const [duration, setDuration] = useState(
+    customDecodeURIComponent(recipe.duration)
   );
-  const [recipeYield, setRecipeYield] = useState(recipe.recipeYield);
-  const [recipeCategory, setRecipeCategory] = useState(recipe.recipeCategory);
-  const [ingredients, setIngredients] = useState(recipe.ingredients);
+  const [calories, setCalories] = useState(
+    customDecodeURIComponent(recipe.calories)
+  );
+  const [difficulty, setDifficulty] = useState(
+    customDecodeURIComponent(recipe.difficulty)
+  );
+  const [cookTime, setCookTime] = useState(
+    customDecodeURIComponent(recipe.cookTime)
+  );
+  const [prepTime, setPrepTime] = useState(
+    customDecodeURIComponent(recipe.prepTime)
+  );
+  const [keywords, setKeywords] = useState(
+    customDecodeURIComponent(recipe.keywords)
+  );
+  const [nutritionCalories, setNutritionCalories] = useState(
+    customDecodeURIComponent(recipe.nutrition.calories)
+  );
+  const [recipeYield, setRecipeYield] = useState(
+    customDecodeURIComponent(recipe.recipeYield)
+  );
+  const [recipeCategory, setRecipeCategory] = useState(
+    customDecodeURIComponent(recipe.recipeCategory)
+  );
+  const [ingredients, setIngredients] = useState(
+    customDecodeURIComponent(recipe.ingredients)
+  );
   const [newIngredient, setNewIngredient] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [recipeInstructions, setRecipeInstructions] = useState(
-    recipe.recipeInstructions
+    customDecodeURIComponent(recipe.recipeInstructions)
   );
   const [newStep, setNewStep] = useState("");
 
