@@ -45,10 +45,6 @@ const RecipeView = () => {
           <span>{customDecodeURIComponent(recipe.keywords)}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
-          <span className="font-semibold">Calorías por porción:</span>
-          <span>{customDecodeURIComponent(recipe.nutrition.calories)}</span>
-        </div>
-        <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Porciones que rinde:</span>
           <span>{customDecodeURIComponent(recipe.recipeYield)}</span>
         </div>

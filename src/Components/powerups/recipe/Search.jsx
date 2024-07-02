@@ -12,7 +12,6 @@ const RecipeSearch = () => {
   const [prepHours, setPrepHours] = useState(0);
   const [prepMinutes, setPrepMinutes] = useState(0);
   const [keywords, setKeywords] = useState("");
-  const [nutritionCalories, setNutritionCalories] = useState("");
   const [recipeYield, setRecipeYield] = useState("");
   const [recipeCategory, setRecipeCategory] = useState("");
   const [recipeInstructions, setRecipeInstructions] = useState([]);
@@ -38,9 +37,6 @@ const RecipeSearch = () => {
       cookTime: formatDurationISO8601(cookHours, cookMinutes),
       prepTime: formatDurationISO8601(prepHours, prepMinutes),
       keywords,
-      nutrition: {
-        calories: nutritionCalories,
-      },
       recipeYield,
       recipeCategory,
       recipeInstructions: recipeInstructions.map((step, index) => ({
@@ -232,17 +228,6 @@ const RecipeSearch = () => {
                 palabras que la describen ("rápida", "fácil", "original").
                 Separe cada palabra clave con una coma. No use términos que sean
                 categorías o tipos de cocina.
-              </span>
-            </div>
-            <div className="flex flex-col space-y-2 mt-4">
-              <label className="font-semibold">Calorías por porción:</label>
-              <input
-                className="border rounded-md px-2"
-                value={nutritionCalories}
-                onChange={(e) => setNutritionCalories(e.target.value)}
-              />
-              <span className="text-gray-600 text-sm">
-                Cantidad de calorías en cada porción de la receta.
               </span>
             </div>
             <div className="flex flex-col space-y-2 mt-4">

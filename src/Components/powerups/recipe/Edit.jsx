@@ -36,9 +36,6 @@ const RecipeEdit = () => {
   const [keywords, setKeywords] = useState(
     customDecodeURIComponent(recipe.keywords)
   );
-  const [nutritionCalories, setNutritionCalories] = useState(
-    customDecodeURIComponent(recipe.nutrition.calories)
-  );
   const [recipeYield, setRecipeYield] = useState(
     customDecodeURIComponent(recipe.recipeYield)
   );
@@ -65,9 +62,6 @@ const RecipeEdit = () => {
       cookTime,
       prepTime,
       keywords,
-      nutrition: {
-        calories: nutritionCalories,
-      },
       recipeYield,
       recipeCategory,
       ingredients,
@@ -241,17 +235,6 @@ const RecipeEdit = () => {
             </span>
           </div>
           <div className="flex flex-col space-y-2 mt-2">
-            <span className="font-semibold">Calorías por porción:</span>
-            <input
-              className="border rounded-md px-2"
-              onChange={(e) => setNutritionCalories(e.target.value)}
-              value={nutritionCalories}
-            />
-            <span className="text-gray-600 text-sm">
-              Cantidad de calorías en cada porción de la receta.
-            </span>
-          </div>
-          <div className="flex flex-col space-y-2 mt-2">
             <span className="font-semibold">Porciones que rinde:</span>
             <input
               className="border rounded-md px-2"
@@ -280,7 +263,7 @@ const RecipeEdit = () => {
           <ul className="list-disc list-inside mt-2">
             {ingredients.map((ingredient, index) => (
               <li key={index}>
-                {ingredient.item}
+                {customDecodeURIComponent(ingredient.item)}
                 <button
                   onClick={(e) => editIngredient(e, index)}
                   className="text-blue-400 ml-2"
@@ -313,7 +296,7 @@ const RecipeEdit = () => {
           <ol className="list-decimal list-inside mt-2">
             {recipeInstructions.map((step, index) => (
               <li key={index}>
-                {step.text}
+                {customDecodeURIComponent(step.text)}
                 <button
                   onClick={(e) => editStep(e, index)}
                   className="text-blue-400 ml-2"
