@@ -27,12 +27,6 @@ const RecipeEdit = () => {
   const [difficulty, setDifficulty] = useState(
     customDecodeURIComponent(recipe.difficulty)
   );
-  const [cookTime, setCookTime] = useState(
-    customDecodeURIComponent(recipe.cookTime)
-  );
-  const [prepTime, setPrepTime] = useState(
-    customDecodeURIComponent(recipe.prepTime)
-  );
   const [keywords, setKeywords] = useState(
     customDecodeURIComponent(recipe.keywords)
   );
@@ -59,8 +53,9 @@ const RecipeEdit = () => {
       duration,
       calories,
       difficulty,
-      cookTime,
-      prepTime,
+      cookTime:recipe.cookTime,
+      prepTime:recipe.prepTime,
+      totalTime:recipe.totalTime,
       keywords,
       recipeYield,
       recipeCategory,
@@ -129,21 +124,6 @@ const RecipeEdit = () => {
     sendMessage("ready", { height: document.documentElement.scrollHeight });
   }, []);
 
-  const timeOptions = [
-    "5 min",
-    "10 min",
-    "15 min",
-    "20 min",
-    "30 min",
-    "45 min",
-    "1 hr",
-    "1.5 hr",
-    "2 hr",
-    "2.5 hr",
-    "3 hr",
-    "4 hr",
-  ];
-
   return (
     <div className="w-full">
       <form className="rounded p-4 bg-white flex" onSubmit={saveData}>
@@ -181,40 +161,6 @@ const RecipeEdit = () => {
             <span className="text-gray-600 text-sm">
               Nivel de dificultad para preparar la receta (fácil, media,
               difícil).
-            </span>
-          </div>
-          <div className="flex flex-col space-y-2 mt-2">
-            <span className="font-semibold">Tiempo de cocción:</span>
-            <select
-              className="border rounded-md px-2"
-              onChange={(e) => setCookTime(e.target.value)}
-              value={cookTime}
-            >
-              {timeOptions.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <span className="text-gray-600 text-sm">
-              Seleccione el tiempo de cocción (horas y minutos).
-            </span>
-          </div>
-          <div className="flex flex-col space-y-2 mt-2">
-            <span className="font-semibold">Tiempo de preparación:</span>
-            <select
-              className="border rounded-md px-2"
-              onChange={(e) => setPrepTime(e.target.value)}
-              value={prepTime}
-            >
-              {timeOptions.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <span className="text-gray-600 text-sm">
-              Seleccione el tiempo de preparación (horas y minutos).
             </span>
           </div>
           <div className="flex flex-col space-y-2 mt-2">

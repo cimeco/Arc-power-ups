@@ -29,13 +29,25 @@ const RecipeSearch = () => {
       return duration;
     };
 
+    const sumTimes = (hours1, minutes1, hours2, minutes2) => {
+      const totalMinutes = hours1 * 60 + minutes1 + hours2 * 60 + minutes2;
+      const totalHours = Math.floor(totalMinutes / 60);
+      const remainingMinutes = totalMinutes % 60;
+      return formatDurationISO8601(totalHours, remainingMinutes);
+    };
+
+    const cookTime = formatDurationISO8601(cookHours, cookMinutes);
+    const prepTime = formatDurationISO8601(prepHours, prepMinutes);
+    const totalTime = sumTimes(cookHours, cookMinutes, prepHours, prepMinutes);
+
     const recipe = {
       duration,
       calories,
       difficulty,
       ingredients,
-      cookTime: formatDurationISO8601(cookHours, cookMinutes),
-      prepTime: formatDurationISO8601(prepHours, prepMinutes),
+      cookTime,
+      prepTime,
+      totalTime,
       keywords,
       recipeYield,
       recipeCategory,
