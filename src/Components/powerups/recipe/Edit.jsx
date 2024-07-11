@@ -27,9 +27,6 @@ const RecipeEdit = () => {
   const [difficulty, setDifficulty] = useState(
     customDecodeURIComponent(recipe.difficulty)
   );
-  const [keywords, setKeywords] = useState(
-    customDecodeURIComponent(recipe.keywords)
-  );
   const [recipeYield, setRecipeYield] = useState(
     customDecodeURIComponent(recipe.recipeYield)
   );
@@ -94,7 +91,6 @@ const RecipeEdit = () => {
       cookTime,
       prepTime,
       totalTime,
-      keywords,
       recipeYield,
       recipeCategory,
       ingredients,
@@ -117,12 +113,17 @@ const RecipeEdit = () => {
     if (editIndex !== null) {
       setIngredients(
         ingredients.map((ingredient, index) =>
-          index === editIndex ? { item: newIngredient } : ingredient
+          index === editIndex
+            ? { item: customDecodeURIComponent(newIngredient) }
+            : ingredient
         )
       );
       setEditIndex(null);
     } else {
-      setIngredients([...ingredients, { item: newIngredient }]);
+      setIngredients([
+        ...ingredients,
+        { item: customDecodeURIComponent(newIngredient) },
+      ]);
     }
     setNewIngredient("");
   };
@@ -143,15 +144,18 @@ const RecipeEdit = () => {
     if (editIndex !== null) {
       const updatedInstructions = [...recipeInstructions];
       updatedInstructions[editIndex] = {
-        name: `Paso ${editIndex + 1}`,
-        text: newStep,
+        name: `Paso ${customDecodeURIComponent(editIndex + 1)}`,
+        text: customDecodeURIComponent(newStep),
       };
       setRecipeInstructions(updatedInstructions);
       setEditIndex(null);
     } else {
       setRecipeInstructions([
         ...recipeInstructions,
-        { name: `Paso ${recipeInstructions.length + 1}`, text: newStep },
+        {
+          name: `Paso ${customDecodeURIComponent(recipeInstructions.length + 1)}`,
+          text: customDecodeURIComponent(newStep),
+        },
       ]);
     }
     setNewStep("");
@@ -209,23 +213,6 @@ const RecipeEdit = () => {
             <span className="text-gray-600 text-sm">
               Nivel de dificultad para preparar la receta (fácil, media,
               difícil).
-            </span>
-          </div>
-          <div className="flex flex-col space-y-2 mt-2">
-            <span className="font-semibold">
-              Palabras clave (separadas por comas):
-            </span>
-            <input
-              className="border rounded-md px-2"
-              onChange={(e) => setKeywords(e.target.value)}
-              value={keywords}
-            />
-            <span className="text-gray-600 text-sm">
-              Ingrese otros términos descriptivos de la receta, como la estación
-              ("verano"), el día festivo ("Halloween") y otras palabras que la
-              describen ("rápida", "fácil", "original"). Separe cada palabra
-              clave con una coma. No use términos que sean categorías o tipos de
-              cocina.
             </span>
           </div>
           <div className="flex flex-col space-y-2 mt-2">

@@ -11,7 +11,6 @@ const RecipeSearch = () => {
   const [cookMinutes, setCookMinutes] = useState(0);
   const [prepHours, setPrepHours] = useState(0);
   const [prepMinutes, setPrepMinutes] = useState(0);
-  const [keywords, setKeywords] = useState("");
   const [recipeYield, setRecipeYield] = useState("");
   const [recipeCategory, setRecipeCategory] = useState("");
   const [recipeInstructions, setRecipeInstructions] = useState([]);
@@ -48,7 +47,6 @@ const RecipeSearch = () => {
       cookTime,
       prepTime,
       totalTime,
-      keywords,
       recipeYield,
       recipeCategory,
       recipeInstructions: recipeInstructions.map((step, index) => ({
@@ -225,21 +223,6 @@ const RecipeSearch = () => {
               </div>
               <span className="text-gray-600 text-sm">
                 Seleccione el tiempo de preparación (horas y minutos).
-              </span>
-            </div>
-            <div className="flex flex-col space-y-2 mt-4">
-              <label className="font-semibold">Palabras clave:</label>
-              <input
-                className="border rounded-md px-2"
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-              />
-              <span className="text-gray-600 text-sm">
-                Ingrese otros términos descriptivos de la receta, como la
-                estación ("verano"), el día festivo ("Halloween") y otras
-                palabras que la describen ("rápida", "fácil", "original").
-                Separe cada palabra clave con una coma. No use términos que sean
-                categorías o tipos de cocina.
               </span>
             </div>
             <div className="flex flex-col space-y-2 mt-4">
