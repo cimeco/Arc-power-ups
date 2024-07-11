@@ -294,7 +294,7 @@ const RecipeEdit = () => {
             <ul className="">
               {ingredients.map((ingredient, index) => (
                 <li key={index} className="flex justify-between items-center mt-2">
-                  <span>{ingredient.item}</span>
+                  <span>{customDecodeURIComponent(ingredient.item)}</span>
                   <div className="space-x-2">
                     <button
                       className="bg-yellow-500 text-white rounded-md px-2"
@@ -336,7 +336,7 @@ const RecipeEdit = () => {
             <ol className="">
               {recipeInstructions.map((step, index) => (
                 <li key={index} className="flex justify-between items-center mt-2">
-                  <span>{step.text}</span>
+                  <span>{customDecodeURIComponent(step.text)}</span>
                   <div className="space-x-2">
                     <button
                       className="bg-yellow-500 text-white rounded-md px-2"
@@ -353,7 +353,7 @@ const RecipeEdit = () => {
                   </div>
                 </li>
               ))}
-            </ol> 
+            </ol>
             <div className="flex space-x-2">
               <textarea
                 className="border rounded-md px-2 w-full"
