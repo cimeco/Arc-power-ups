@@ -16,14 +16,42 @@ export const loader = async () => {
 
 const RecipeView = () => {
   const { recipe } = useLoaderData();
-  console.log(recipe,"recipe")
+
+  function parseISO8601Duration(duration) {
+    // Expresión regular para extraer horas y minutos
+    const regex = /P(T(?:(\d+)H)?(?:(\d+)M)?)/;
+    const matches = duration.match(regex);
+
+    if (!matches) {
+      throw new Error("Formato de duración no válido");
+    }
+
+    const hours = matches[2] ? parseInt(matches[2], 10) : 0;
+    const minutes = matches[3] ? parseInt(matches[3], 10) : 0;
+
+    // Crear una cadena legible
+    let readableDuration = "";
+    if (hours > 0) {
+      readableDuration += `${hours} hora${hours > 1 ? "s" : ""}`;
+    }
+    if (minutes > 0) {
+      if (hours > 0) {
+        readableDuration += " y ";
+      }
+      readableDuration += `${minutes} minuto${minutes > 1 ? "s" : ""}`;
+    }
+
+    return readableDuration;
+  }
 
   return (
     <div className="p-4 flex flex-col space-y-4">
       <div className="bg-white shadow-md rounded-lg p-4">
         <div className="flex items-center space-x-2">
-          <span className="font-semibold">Duración:</span>
-          <span>{customDecodeURIComponent(recipe.duration)}</span>
+          <span className="font-semibold">Duración total:</span>
+          <span>
+            {customDecodeURIComponent(parseISO8601Duration(recipe.totalTime))}
+          </span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
           <span className="font-semibold">Calorías:</span>

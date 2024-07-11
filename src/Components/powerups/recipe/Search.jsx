@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { parseQueryString, sendMessage } from "../../../../util/powerups";
 
 const RecipeSearch = () => {
-  const [duration, setDuration] = useState("");
   const [calories, setCalories] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [ingredients, setIngredients] = useState([]);
@@ -40,7 +39,6 @@ const RecipeSearch = () => {
     const totalTime = sumTimes(cookHours, cookMinutes, prepHours, prepMinutes);
 
     const recipe = {
-      duration,
       calories,
       difficulty,
       ingredients,
@@ -130,18 +128,6 @@ const RecipeSearch = () => {
       >
         <div className="w-1/2">
           <div className="p-4">
-            <div className="flex flex-col space-y-2">
-              <label className="font-semibold">Duración:</label>
-              <input
-                className="border rounded-md px-2"
-                value={duration}
-                onChange={(e) => setDuration(e.target.value)}
-              />
-              <span className="text-gray-600 text-sm">
-                Tiempo total que toma preparar la receta (incluyendo preparación
-                y cocción).
-              </span>
-            </div>
             <div className="flex flex-col space-y-2 mt-4">
               <label className="font-semibold">Calorías:</label>
               <input

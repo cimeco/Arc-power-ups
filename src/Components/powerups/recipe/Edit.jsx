@@ -18,9 +18,6 @@ export const loader = async () => {
 const RecipeEdit = () => {
   const { recipe } = useLoaderData();
 
-  const [duration, setDuration] = useState(
-    customDecodeURIComponent(recipe.duration)
-  );
   const [calories, setCalories] = useState(
     customDecodeURIComponent(recipe.calories)
   );
@@ -85,7 +82,6 @@ const RecipeEdit = () => {
     const totalTime = sumTimes(cookHours, cookMinutes, prepHours, prepMinutes);
 
     const updatedRecipe = {
-      duration,
       calories,
       difficulty,
       cookTime,
@@ -180,18 +176,6 @@ const RecipeEdit = () => {
     <div className="w-full">
       <form className="rounded p-4 bg-white flex" onSubmit={saveData}>
         <div className="w-1/2 p-2">
-          <div className="flex flex-col space-y-2">
-            <span className="font-semibold">Duración (tiempo total):</span>
-            <input
-              className="border rounded-md px-2"
-              onChange={(e) => setDuration(e.target.value)}
-              value={duration}
-            />
-            <span className="text-gray-600 text-sm">
-              Tiempo total que toma preparar la receta (incluyendo preparación y
-              cocción).
-            </span>
-          </div>
           <div className="flex flex-col space-y-2 mt-2">
             <span className="font-semibold">Calorías:</span>
             <input
