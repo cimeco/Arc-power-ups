@@ -272,36 +272,42 @@ const RecipeSearch = () => {
             <h2 className="font-bold">Ingredientes</h2>
             <ul className="list-disc list-inside mt-2">
               {ingredients.map((ingredient, index) => (
-                <li key={index}>
+                <li key={index} className="mt-2">
                   {ingredient.item}
                   <button
                     onClick={(e) => editIngredient(e, index)}
-                    className="text-blue-400 ml-2"
+                    className="bg-yellow-500 text-white rounded-md px-2 mx-1"
                   >
                     Editar
                   </button>
                   <button
                     onClick={(e) => removeIngredient(e, index)}
-                    className="text-red-600 ml-1"
+                    className="bg-red-500 text-white rounded-md px-2"
                   >
                     Eliminar
                   </button>
                 </li>
               ))}
             </ul>
-            <div className="flex items-center space-y-2 mt-4">
+            <div className="flex space-y-2 mt-4">
               <textarea
                 className="border rounded-md w-full px-2 py-1"
                 value={newIngredient}
                 onChange={(e) => setNewIngredient(e.target.value)}
                 rows={4}
               />
-              <button
-                className="border rounded-md px-2 ml-2 mt-2"
-                onClick={addIngredient}
-              >
-                {editIngredientIndex !== null ? "Actualizar" : "Agregar"}
-              </button>
+              <div className="flex flex-col justify-end">
+                <button
+                  className={`${
+                    editIngredientIndex !== null
+                      ? "bg-yellow-500"
+                      : "bg-blue-500"
+                  } text-white rounded-md px-4 py-2 h-10 ml-2`}
+                  onClick={addIngredient}
+                >
+                  {editIngredientIndex !== null ? "Actualizar" : "Agregar"}
+                </button>
+              </div>
             </div>
             <span className="text-gray-600 text-sm block mt-2">
               Ingrese un ingrediente y haga clic en "Agregar" o "Actualizar"
@@ -312,37 +318,41 @@ const RecipeSearch = () => {
             <h2 className="font-bold">Pasos de la receta</h2>
             <ul className="list-disc list-inside mt-2">
               {recipeInstructions.map((step, index) => (
-                <li key={index}>
+                <li key={index} className="mt-2">
                   <span className="font-semibold">Paso {index + 1}:</span>{" "}
                   {step}
                   <button
                     onClick={(e) => editStep(e, index)}
-                    className="text-blue-400 ml-2"
+                    className="bg-yellow-500 text-white rounded-md px-2 mx-1"
                   >
                     Editar
                   </button>
                   <button
                     onClick={(e) => removeStep(e, index)}
-                    className="text-red-600 ml-1"
+                    className="bg-red-500 text-white rounded-md px-2"
                   >
                     Eliminar
                   </button>
                 </li>
               ))}
             </ul>
-            <div className="flex items-center space-y-2 mt-4">
+            <div className="flex space-y-2 mt-4">
               <textarea
                 className="border rounded-md w-full px-2 py-1"
                 value={newStep}
                 onChange={(e) => setNewStep(e.target.value)}
                 rows={4}
               />
-              <button
-                className="border rounded-md px-2 ml-2 mt-2"
-                onClick={addStep}
-              >
-                {editStepIndex !== null ? "Actualizar" : "Agregar"}
-              </button>
+              <div className="flex flex-col justify-end">
+                <button
+                  className={`${
+                    editStepIndex !== null ? "bg-yellow-500" : "bg-blue-500"
+                  } text-white rounded-md px-4 py-2 h-10 ml-2`}
+                  onClick={addStep}
+                >
+                  {editStepIndex !== null ? "Actualizar" : "Agregar"}
+                </button>
+              </div>
             </div>
             <span className="text-gray-600 text-sm block mt-2">
               Ingrese un paso de la receta y haga clic en "Agregar" o

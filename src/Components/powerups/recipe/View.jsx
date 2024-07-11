@@ -16,6 +16,7 @@ export const loader = async () => {
 
 const RecipeView = () => {
   const { recipe } = useLoaderData();
+  console.log(recipe,"recipe")
 
   return (
     <div className="p-4 flex flex-col space-y-4">

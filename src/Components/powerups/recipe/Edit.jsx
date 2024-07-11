@@ -36,9 +36,29 @@ const RecipeEdit = () => {
   const [recipeCategory, setRecipeCategory] = useState(
     customDecodeURIComponent(recipe.recipeCategory)
   );
-  const [ingredients, setIngredients] = useState(
-    recipe.ingredients
+
+  const parseISO8601ToTime = (iso8601) => {
+    const regex = /P(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?/;
+    const matches = iso8601.match(regex);
+    return {
+      hours: parseInt(matches[1] || 0),
+      minutes: parseInt(matches[2] || 0),
+    };
+  };
+
+  const cookTime = parseISO8601ToTime(
+    customDecodeURIComponent(recipe.cookTime)
   );
+  const prepTime = parseISO8601ToTime(
+    customDecodeURIComponent(recipe.prepTime)
+  );
+
+  const [cookHours, setCookHours] = useState(cookTime.hours);
+  const [cookMinutes, setCookMinutes] = useState(cookTime.minutes);
+  const [prepHours, setPrepHours] = useState(prepTime.hours);
+  const [prepMinutes, setPrepMinutes] = useState(prepTime.minutes);
+
+  const [ingredients, setIngredients] = useState(recipe.ingredients);
   const [newIngredient, setNewIngredient] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [recipeInstructions, setRecipeInstructions] = useState(
@@ -46,16 +66,34 @@ const RecipeEdit = () => {
   );
   const [newStep, setNewStep] = useState("");
 
+  const formatDurationISO8601 = (hours, minutes) => {
+    let duration = "PT";
+    if (hours > 0) duration += `${hours}H`;
+    if (minutes > 0) duration += `${minutes}M`;
+    return duration;
+  };
+
+  const sumTimes = (hours1, minutes1, hours2, minutes2) => {
+    const totalMinutes = hours1 * 60 + minutes1 + hours2 * 60 + minutes2;
+    const totalHours = Math.floor(totalMinutes / 60);
+    const remainingMinutes = totalMinutes % 60;
+    return formatDurationISO8601(totalHours, remainingMinutes);
+  };
+
   const saveData = (e) => {
     e.preventDefault();
+
+    const cookTime = formatDurationISO8601(cookHours, cookMinutes);
+    const prepTime = formatDurationISO8601(prepHours, prepMinutes);
+    const totalTime = sumTimes(cookHours, cookMinutes, prepHours, prepMinutes);
 
     const updatedRecipe = {
       duration,
       calories,
       difficulty,
-      cookTime:recipe.cookTime,
-      prepTime:recipe.prepTime,
-      totalTime:recipe.totalTime,
+      cookTime,
+      prepTime,
+      totalTime,
       keywords,
       recipeYield,
       recipeCategory,
@@ -102,17 +140,27 @@ const RecipeEdit = () => {
 
   const addStep = (e) => {
     e.preventDefault();
-    setRecipeInstructions([
-      ...recipeInstructions,
-      { name: `Paso ${recipeInstructions.length + 1}`, text: newStep },
-    ]);
+    if (editIndex !== null) {
+      const updatedInstructions = [...recipeInstructions];
+      updatedInstructions[editIndex] = {
+        name: `Paso ${editIndex + 1}`,
+        text: newStep,
+      };
+      setRecipeInstructions(updatedInstructions);
+      setEditIndex(null);
+    } else {
+      setRecipeInstructions([
+        ...recipeInstructions,
+        { name: `Paso ${recipeInstructions.length + 1}`, text: newStep },
+      ]);
+    }
     setNewStep("");
   };
 
   const editStep = (event, index) => {
     event.preventDefault();
     setNewStep(recipeInstructions[index].text);
-    setRecipeInstructions(recipeInstructions.filter((_, i) => i !== index));
+    setEditIndex(index);
   };
 
   const removeStep = (event, index) => {
@@ -199,86 +247,152 @@ const RecipeEdit = () => {
               value={recipeCategory}
             />
             <span className="text-gray-600 text-sm">
-              Tipo de comida o plato de la receta (cena, plato principal,
-              postre, bocadillo, etc.).
+              Categoria de la receta (Ejemplo: postres, ensaladas, etc.).
+            </span>
+          </div>
+          <div className="flex flex-col space-y-2 mt-2">
+            <span className="font-semibold">Tiempo de cocción:</span>
+            <div className="flex space-x-2">
+              <input
+                type="number"
+                className="border rounded-md px-2"
+                onChange={(e) => setCookHours(parseInt(e.target.value))}
+                value={cookHours}
+                min="0"
+                placeholder="Horas"
+              />
+              <input
+                type="number"
+                className="border rounded-md px-2"
+                onChange={(e) => setCookMinutes(parseInt(e.target.value))}
+                value={cookMinutes}
+                min="0"
+                max="59"
+                placeholder="Minutos"
+              />
+            </div>
+            <span className="text-gray-600 text-sm">
+              Tiempo que toma cocinar la receta.
+            </span>
+          </div>
+          <div className="flex flex-col space-y-2 mt-2">
+            <span className="font-semibold">Tiempo de preparación:</span>
+            <div className="flex space-x-2">
+              <input
+                type="number"
+                className="border rounded-md px-2"
+                onChange={(e) => setPrepHours(parseInt(e.target.value))}
+                value={prepHours}
+                min="0"
+                placeholder="Horas"
+              />
+              <input
+                type="number"
+                className="border rounded-md px-2"
+                onChange={(e) => setPrepMinutes(parseInt(e.target.value))}
+                value={prepMinutes}
+                min="0"
+                max="59"
+                placeholder="Minutos"
+              />
+            </div>
+            <span className="text-gray-600 text-sm">
+              Tiempo que toma preparar la receta antes de cocinarla.
             </span>
           </div>
         </div>
         <div className="w-1/2 p-2">
-          <h2 className="font-bold">Ingredientes</h2>
-          <ul className="list-disc list-inside mt-2">
-            {ingredients.map((ingredient, index) => (
-              <li key={index}>
-                {customDecodeURIComponent(ingredient.item)}
+          <div className="flex flex-col space-y-2">
+            <span className="font-semibold">Ingredientes:</span>
+            <ul className="">
+              {ingredients.map((ingredient, index) => (
+                <li key={index} className="flex justify-between items-center mt-2">
+                  <span>{ingredient.item}</span>
+                  <div className="space-x-2">
+                    <button
+                      className="bg-yellow-500 text-white rounded-md px-2"
+                      onClick={(event) => editIngredient(event, index)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="bg-red-500 text-white rounded-md px-2"
+                      onClick={(event) => removeIngredient(event, index)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="flex space-x-2">
+              <textarea
+                className="border rounded-md w-full px-2 py-1"
+                value={newIngredient}
+                onChange={(e) => setNewIngredient(e.target.value)}
+                rows={4}
+              />
+              <div className="justify-end flex flex-col">
                 <button
-                  onClick={(e) => editIngredient(e, index)}
-                  className="text-blue-400 ml-2"
+                  className={`${
+                    editIndex !== null ? "bg-yellow-500" : "bg-blue-500"
+                  } text-white rounded-md px-4 py-2 h-10`}
+                  onClick={addIngredient}
                 >
-                  Editar
+                  {editIndex !== null ? "Actualizar" : "Agregar"}
                 </button>
-                <button
-                  onClick={(e) => removeIngredient(e, index)}
-                  className="text-red-600 ml-1"
-                >
-                  Eliminar
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div>
-            <input
-              className="border rounded-md w-4/5 px-2"
-              value={newIngredient}
-              onChange={(e) => setNewIngredient(e.target.value)}
-            />
-            <button
-              className="border rounded-md px-2 ml-2 mt-2"
-              onClick={addIngredient}
-            >
-              {editIndex !== null ? "Actualizar" : "Agregar"}
-            </button>
+              </div>
+            </div>
           </div>
-          <h2 className="font-bold mt-5">Pasos de la receta</h2>
-          <ol className="list-decimal list-inside mt-2">
-            {recipeInstructions.map((step, index) => (
-              <li key={index}>
-                {customDecodeURIComponent(step.text)}
+          <div className="flex flex-col space-y-2 mt-4">
+            <span className="font-semibold">Instrucciones:</span>
+            <ol className="">
+              {recipeInstructions.map((step, index) => (
+                <li key={index} className="flex justify-between items-center mt-2">
+                  <span>{step.text}</span>
+                  <div className="space-x-2">
+                    <button
+                      className="bg-yellow-500 text-white rounded-md px-2"
+                      onClick={(event) => editStep(event, index)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="bg-red-500 text-white rounded-md px-2"
+                      onClick={(event) => removeStep(event, index)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ol> 
+            <div className="flex space-x-2">
+              <textarea
+                className="border rounded-md px-2 w-full"
+                onChange={(e) => setNewStep(e.target.value)}
+                value={newStep}
+                placeholder="Nuevo paso"
+                rows={4}
+              />
+              <div className="flex flex-col justify-end">
                 <button
-                  onClick={(e) => editStep(e, index)}
-                  className="text-blue-400 ml-2"
+                  className={`${
+                    editIndex !== null ? "bg-yellow-500" : "bg-blue-500"
+                  } text-white rounded-md px-4 py-2 h-10`}
+                  onClick={addStep}
                 >
-                  Editar
+                  {editIndex !== null ? "Actualizar" : "Agregar"}
                 </button>
-                <button
-                  onClick={(e) => removeStep(e, index)}
-                  className="text-red-600 ml-1"
-                >
-                  Eliminar
-                </button>
-              </li>
-            ))}
-          </ol>
-          <div>
-            <input
-              className="border rounded-md w-4/5 px-2"
-              value={newStep}
-              onChange={(e) => setNewStep(e.target.value)}
-            />
-            <button
-              className="border rounded-md px-2 ml-2 mt-2"
-              onClick={addStep}
-            >
-              {editIndex !== null ? "Actualizar" : "Agregar"}
-            </button>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-end mt-10">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Guardar
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="mt-4 bg-green-500 text-white rounded-md px-4 py-2"
+          >
+            Guardar receta
+          </button>
         </div>
       </form>
     </div>
