@@ -12,42 +12,67 @@ export const loader = async () => {
 
   const parameters = Object.assign({ wait: 0 }, parseQueryString());
   const data = JSON.parse(decodeURIComponent(parameters.p));
-  const liveblog = data.config.liveblog;
+  const billboard = data.config.billboard;
 
-  return { liveblog };
+  return { billboard };
 };
 
 const BillboardEdit = () => {
   registerLocale("es", es);
-  const { liveblog } = useLoaderData();
-  const [title, setTitle] = useState(customDecodeURIComponent(liveblog?.title));
-  const [startDate, setStartDate] = useState(new Date(liveblog.date));
+  const { billboard } = useLoaderData();
+  const [premiere, setPremiere] = useState(customDecodeURIComponent(billboard.premiere));
+  const [origin, setOrigin] = useState(customDecodeURIComponent(billboard.origin));
+  const [director, setDirector] = useState(customDecodeURIComponent(billboard.director));
+  const [cast, setCast] = useState(customDecodeURIComponent(billboard.cast));
+  const [duration, setDuration] = useState(customDecodeURIComponent(billboard.duration));
+  const [cinemas, setCinemas] = useState(billboard.cinemas);
+  const [cinemaName, setCinemaName] = useState("");
+  const [cinemaShowtimes, setCinemaShowtimes] = useState("");
+  const [cinemaTicketUrl, setCinemaTicketUrl] = useState("");
 
-  const slugify = (text) => {
-    return text
-      .toString()
-      .toLowerCase()
-      .replace(/\s+/g, "-") // Reemplazar espacios en blanco con guiones
-      .replace(/[^\w-]+/g, "") // Eliminar caracteres no alfanuméricos excepto guiones
-      .replace(/--+/g, "-") // Reemplazar múltiples guiones consecutivos por uno solo
-      .replace(/^-+|-+$/g, ""); // Eliminar guiones al principio y al final
+  const handleAddCinema = (e) => {
+    e.preventDefault();
+    const newCinema = {
+      name: cinemaName,
+      showtimes: cinemaShowtimes.split(","),
+      ticketUrl: cinemaTicketUrl,
+    };
+    setCinemas([...cinemas, newCinema]);
+    setCinemaName("");
+    setCinemaShowtimes("");
+    setCinemaTicketUrl("");
+  };
+
+  const handleEditCinema = (index) => {
+    const cinemaToEdit = cinemas[index];
+    setCinemaName(cinemaToEdit.name);
+    setCinemaShowtimes(cinemaToEdit.showtimes.join(","));
+    setCinemaTicketUrl(cinemaToEdit.ticketUrl);
+    handleDeleteCinema(index);
+  };
+
+  const handleDeleteCinema = (index) => {
+    const updatedCinemas = cinemas.filter((_, i) => i !== index);
+    setCinemas(updatedCinemas);
   };
 
   const saveData = (e) => {
     e.preventDefault();
 
-    const titleSlug = slugify(title);
-    const liveblog = {
-      title: title,
-      date: startDate,
-      slug: titleSlug,
+    const billboard = {
+      premiere,
+      origin,
+      director,
+      cast,
+      duration,
+      cinemas
     };
 
     const ansCustomEmbed = {
       id: parseQueryString()["k"],
-      url: "https://dsj9tz56eff78.cloudfront.net/powerups/liveblog/view",
+      url: "https://dsj9tz56eff78.cloudfront.net/powerups/billboard/view",
       config: {
-        liveblog,
+        billboard,
       },
     };
     sendMessage("data", ansCustomEmbed);
@@ -58,48 +83,145 @@ const BillboardEdit = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-lg">
-      <form className="rounded px-8 pt-6 pb-8 mb-4" onSubmit={saveData}>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
-          >
-            Titulo
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            placeholder="Titulo"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-          />
+    <div className="w-full">
+      <form className="rounded mb-4 flex" onSubmit={(e) => e.preventDefault()}>
+        <div className="w-1/2 p-2">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="premier">
+              Estreno
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="premier"
+              type="date"
+              placeholder="Fecha de estreno"
+              value={premiere}
+              onChange={(e) => setPremiere(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="origin">
+              Origen
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="origin"
+              type="text"
+              placeholder="Origen"
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="director">
+              Director
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="director"
+              type="text"
+              placeholder="Director"
+              value={director}
+              onChange={(e) => setDirector(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cast">
+              Reparto
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="cast"
+              type="text"
+              placeholder="Reparto"
+              value={cast}
+              onChange={(e) => setCast(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="duration">
+              Duración
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="duration"
+              type="text"
+              placeholder="Duración"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
-          >
-            Fecha y hora
-          </label>
-          <ReactDatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            timeInputLabel="Time:"
-            dateFormat="dd/MM/yyyy h:mm aa"
-            showTimeInput
-            locale="es"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            disabled={!title}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Guardar
-          </button>
+        <div className="w-1/2 p-2">
+          <h3 className="font-bold">Funciones y horarios</h3>
+          {cinemas?.map((cinema, index) => (
+            <div key={index} className="rounded-lg bg-white p-3 mt-2">
+              <h4 className="font-medium">{cinema.name}</h4>
+              <p className="text-muted-foreground">{cinema.showtimes.join(", ")}</p>
+              <p className="text-muted-foreground">{cinema.ticketUrl}</p>
+              <button
+                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
+                onClick={() => handleEditCinema(index)}
+              >
+                Editar
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                onClick={() => handleDeleteCinema(index)}
+              >
+                Eliminar
+              </button>
+            </div>
+          ))}
+          <div className="mt-3">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cinemaName">
+              Nombre del lugar
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="cinemaName"
+              type="text"
+              placeholder="Nombre del lugar"
+              value={cinemaName}
+              onChange={(e) => setCinemaName(e.target.value)}
+            />
+            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaShowtimes">
+              Horarios (separados por coma)
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="cinemaShowtimes"
+              type="text"
+              placeholder="Horarios (ej. 13:10, 15:10)"
+              value={cinemaShowtimes}
+              onChange={(e) => setCinemaShowtimes(e.target.value)}
+            />
+            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaTicketUrl">
+              URL para compra de entradas
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="cinemaTicketUrl"
+              type="text"
+              placeholder="URL para compra de entradas"
+              value={cinemaTicketUrl}
+              onChange={(e) => setCinemaTicketUrl(e.target.value)}
+            />
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3"
+              onClick={handleAddCinema}
+            >
+              Agregar lugar
+            </button>
+          </div>
+          <div className="flex justify-end mt-3">
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              onClick={saveData}
+            >
+              Enviar
+            </button>
+          </div>
         </div>
       </form>
     </div>

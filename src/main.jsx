@@ -38,9 +38,9 @@ import CustomFieldsView, {
   loader as customfieldsViewLoader,
 } from "./Components/powerups/customFields/View";
 
-import BillboardView, { loader as billboardViewLoader } from "./Components/powerups/billBoard/View";
-import BillboardSearch from "./Components/powerups/billBoard/Search";
-import BillboardEdit from "./Components/powerups/billBoard/Edit";
+import BillboardView, { loader as billboardViewLoader } from "./Components/powerups/billboard/View";
+import BillboardSearch from "./Components/powerups/billboard/Search";
+import BillboardEdit, {loader as billboardEditLoader} from "./Components/powerups/billBoard/Edit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,7 +67,7 @@ const router = createBrowserRouter(
       <Route
         path="billboard/edit"
         element={<BillboardEdit />}
-        loader={recipeEditLoader}
+        loader={billboardEditLoader}
       />
       <Route
         path="billboard/view"
