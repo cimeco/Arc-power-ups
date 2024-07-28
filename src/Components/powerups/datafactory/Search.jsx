@@ -38,9 +38,11 @@ const DatafactorySearch = () => {
             </tr>
           </thead>
           <tbody>
-            {partidos.map((partido) => (
-              <Match key={partido.id} partido={partido} />
-            ))}
+            {partidos && partidos.map((partido) => {
+              return (
+                <Match id={partido.id} partido={partido} />
+              )
+            })}
           </tbody>
         </table>
       ) : (
