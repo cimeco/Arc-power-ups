@@ -38,6 +38,10 @@ import CustomFieldsView, {
   loader as customfieldsViewLoader,
 } from "./Components/powerups/customFields/View";
 
+import BillboardView, { loader as billboardViewLoader } from "./Components/powerups/billboard/View";
+import BillboardSearch from "./Components/powerups/billboard/Search";
+import BillboardEdit, {loader as billboardEditLoader} from "./Components/powerups/billBoard/Edit";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/powerups" element={<Root />} errorElement={<ErrorPage />}>
@@ -53,6 +57,22 @@ const router = createBrowserRouter(
         path="datafactory/view"
         element={<DatafactoryView />}
         loader={viewLoader}
+      />
+      {/* Billboard */}
+      <Route
+        path="billboard/search"
+        element={<BillboardSearch />}
+        errorElement={<ErrorPage />}
+      />
+      <Route
+        path="billboard/edit"
+        element={<BillboardEdit />}
+        loader={billboardEditLoader}
+      />
+      <Route
+        path="billboard/view"
+        element={<BillboardView />}
+        loader={billboardViewLoader}
       />
       {/* Recipe */}
       <Route
