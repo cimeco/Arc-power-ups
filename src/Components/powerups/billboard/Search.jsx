@@ -11,7 +11,7 @@ const BillboardSearch = () => {
   const [director, setDirector] = useState();
   const [cast, setCast] = useState();
   const [duration, setDuration] = useState();
-  const [rating, setRating] = useState("1"); // Estado para la clasificación
+  const [rating, setRating] = useState("1");
   const [cinemas, setCinemas] = useState([]);
   const [cinemaName, setCinemaName] = useState("");
   const [cinemaShowtimes, setCinemaShowtimes] = useState("");

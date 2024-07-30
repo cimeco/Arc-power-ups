@@ -25,6 +25,7 @@ const BillboardEdit = () => {
   const [director, setDirector] = useState(customDecodeURIComponent(billboard.director));
   const [cast, setCast] = useState(customDecodeURIComponent(billboard.cast));
   const [duration, setDuration] = useState(customDecodeURIComponent(billboard.duration));
+  const [rating, setRating] = useState(customDecodeURIComponent(billboard.rating));
   const [cinemas, setCinemas] = useState(billboard.cinemas);
   const [cinemaName, setCinemaName] = useState("");
   const [cinemaShowtimes, setCinemaShowtimes] = useState("");
@@ -65,7 +66,8 @@ const BillboardEdit = () => {
       director,
       cast,
       duration,
-      cinemas
+      cinemas,
+      rating
     };
 
     const ansCustomEmbed = {
@@ -87,7 +89,10 @@ const BillboardEdit = () => {
       <form className="rounded mb-4 flex" onSubmit={(e) => e.preventDefault()}>
         <div className="w-1/2 p-2">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="premier">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="premier"
+            >
               Estreno
             </label>
             <input
@@ -100,7 +105,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="origin">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="origin"
+            >
               Origen
             </label>
             <input
@@ -113,7 +121,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="director">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="director"
+            >
               Director
             </label>
             <input
@@ -126,7 +137,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cast">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cast"
+            >
               Reparto
             </label>
             <input
@@ -139,7 +153,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="duration">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="duration"
+            >
               Duración
             </label>
             <input
@@ -151,13 +168,39 @@ const BillboardEdit = () => {
               onChange={(e) => setDuration(e.target.value)}
             />
           </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="rating"
+            >
+              Clasificación
+            </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="rating"
+              value={rating}
+              onChange={(e) => setRating(e.target.value)}
+            >
+              <option value="1">1</option>
+              <option value="1.5">1.5</option>
+              <option value="2">2</option>
+              <option value="2.5">2.5</option>
+              <option value="3">3</option>
+              <option value="3.5">3.5</option>
+              <option value="4">4</option>
+              <option value="4.5">4.5</option>
+              <option value="5">5</option>
+            </select>
+          </div>
         </div>
         <div className="w-1/2 p-2">
           <h3 className="font-bold">Funciones y horarios</h3>
           {cinemas?.map((cinema, index) => (
             <div key={index} className="rounded-lg bg-white p-3 mt-2">
               <h4 className="font-medium">{cinema.name}</h4>
-              <p className="text-muted-foreground">{cinema.showtimes.join(", ")}</p>
+              <p className="text-muted-foreground">
+                {cinema.showtimes.join(", ")}
+              </p>
               <p className="text-muted-foreground">{cinema.ticketUrl}</p>
               <button
                 className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
@@ -174,7 +217,10 @@ const BillboardEdit = () => {
             </div>
           ))}
           <div className="mt-3">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cinemaName">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cinemaName"
+            >
               Nombre del lugar
             </label>
             <input
@@ -185,7 +231,10 @@ const BillboardEdit = () => {
               value={cinemaName}
               onChange={(e) => setCinemaName(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaShowtimes">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="cinemaShowtimes"
+            >
               Horarios (separados por coma)
             </label>
             <input
@@ -196,7 +245,10 @@ const BillboardEdit = () => {
               value={cinemaShowtimes}
               onChange={(e) => setCinemaShowtimes(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaTicketUrl">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="cinemaTicketUrl"
+            >
               URL para compra de entradas
             </label>
             <input
