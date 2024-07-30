@@ -40,7 +40,7 @@ import CustomFieldsView, {
 
 import BillboardView, { loader as billboardViewLoader } from "./Components/powerups/billboard/View";
 import BillboardSearch from "./Components/powerups/billboard/Search";
-import BillboardEdit, {loader as billboardEditLoader} from "./Components/powerups/billBoard/Edit";
+import BillboardEdit, {loader as billboardEditLoader} from "./Components/powerups/billboard/Edit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

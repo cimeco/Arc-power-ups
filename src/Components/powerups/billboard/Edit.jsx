@@ -20,7 +20,7 @@ export const loader = async () => {
 const BillboardEdit = () => {
   registerLocale("es", es);
   const { billboard } = useLoaderData();
-  const [premiere, setPremiere] = useState(customDecodeURIComponent(billboard.premiere));
+  const [premiere, setPremiere] = useState(billboard.premiere);
   const [origin, setOrigin] = useState(customDecodeURIComponent(billboard.origin));
   const [director, setDirector] = useState(customDecodeURIComponent(billboard.director));
   const [cast, setCast] = useState(customDecodeURIComponent(billboard.cast));
