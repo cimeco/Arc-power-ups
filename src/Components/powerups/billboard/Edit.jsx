@@ -197,9 +197,9 @@ const BillboardEdit = () => {
           <h3 className="font-bold">Funciones y horarios</h3>
           {cinemas?.map((cinema, index) => (
             <div key={index} className="rounded-lg bg-white p-3 mt-2">
-              <h4 className="font-medium">{cinema.name}</h4>
+              <h4 className="font-medium">{customDecodeURIComponent(cinema.name)}</h4>
               <p className="text-muted-foreground">
-                {cinema.showtimes.join(", ")}
+                {customDecodeURIComponent(cinema.showtimes.join(", "))}
               </p>
               <p className="text-muted-foreground">{cinema.ticketUrl}</p>
               <button
