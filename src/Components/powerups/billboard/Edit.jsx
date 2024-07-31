@@ -21,11 +21,19 @@ const BillboardEdit = () => {
   registerLocale("es", es);
   const { billboard } = useLoaderData();
   const [premiere, setPremiere] = useState(billboard.premiere);
-  const [origin, setOrigin] = useState(customDecodeURIComponent(billboard.origin));
-  const [director, setDirector] = useState(customDecodeURIComponent(billboard.director));
+  const [origin, setOrigin] = useState(
+    customDecodeURIComponent(billboard.origin)
+  );
+  const [director, setDirector] = useState(
+    customDecodeURIComponent(billboard.director)
+  );
   const [cast, setCast] = useState(customDecodeURIComponent(billboard.cast));
-  const [duration, setDuration] = useState(customDecodeURIComponent(billboard.duration));
-  const [rating, setRating] = useState(customDecodeURIComponent(billboard.rating));
+  const [duration, setDuration] = useState(
+    customDecodeURIComponent(billboard.duration)
+  );
+  const [rating, setRating] = useState(
+    customDecodeURIComponent(billboard.rating)
+  );
   const [cinemas, setCinemas] = useState(billboard.cinemas);
   const [cinemaName, setCinemaName] = useState("");
   const [cinemaShowtimes, setCinemaShowtimes] = useState("");
@@ -34,8 +42,8 @@ const BillboardEdit = () => {
   const handleAddCinema = (e) => {
     e.preventDefault();
     const newCinema = {
-      name: cinemaName,
-      showtimes: cinemaShowtimes.split(","),
+      name: customDecodeURIComponent(cinemaName),
+      showtimes: customDecodeURIComponent(cinemaShowtimes).split(","),
       ticketUrl: cinemaTicketUrl,
     };
     setCinemas([...cinemas, newCinema]);
@@ -60,14 +68,22 @@ const BillboardEdit = () => {
   const saveData = (e) => {
     e.preventDefault();
 
+    const decodedCinemas = cinemas.map((cinema) => ({
+      name: customDecodeURIComponent(cinema.name),
+      showtimes: cinema.showtimes.map((showtime) =>
+        customDecodeURIComponent(showtime)
+      ),
+      ticketUrl: customDecodeURIComponent(cinema.ticketUrl),
+    }));
+
     const billboard = {
       premiere,
       origin,
       director,
       cast,
       duration,
-      cinemas,
-      rating
+      cinemas: decodedCinemas,
+      rating,
     };
 
     const ansCustomEmbed = {
@@ -197,7 +213,9 @@ const BillboardEdit = () => {
           <h3 className="font-bold">Funciones y horarios</h3>
           {cinemas?.map((cinema, index) => (
             <div key={index} className="rounded-lg bg-white p-3 mt-2">
-              <h4 className="font-medium">{customDecodeURIComponent(cinema.name)}</h4>
+              <h4 className="font-medium">
+                {customDecodeURIComponent(cinema.name)}
+              </h4>
               <p className="text-muted-foreground">
                 {customDecodeURIComponent(cinema.showtimes.join(", "))}
               </p>
