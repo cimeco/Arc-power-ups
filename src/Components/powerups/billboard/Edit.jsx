@@ -27,7 +27,7 @@ const BillboardEdit = () => {
   const [director, setDirector] = useState(
     customDecodeURIComponent(billboard.director)
   );
-  const [gener, setGener] = useState(
+  const [genre, setGenre] = useState(
     customDecodeURIComponent(billboard.gener)
   );
   const [cast, setCast] = useState(customDecodeURIComponent(billboard.cast));
@@ -83,7 +83,7 @@ const BillboardEdit = () => {
       premiere,
       origin,
       director,
-      gener,
+      genre,
       cast,
       duration,
       cinemas: decodedCinemas,
@@ -159,17 +159,17 @@ const BillboardEdit = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="gener"
+              htmlFor="genre"
             >
               Genero
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="gener"
+              id="genre"
               type="text"
               placeholder="Genero"
-              value={gener}
-              onChange={(e) => setGener(e.target.value)}
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
             />
           </div>
           <div className="mb-4">
