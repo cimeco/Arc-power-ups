@@ -9,6 +9,7 @@ const BillboardSearch = () => {
   const [premiere, setPremiere] = useState();
   const [origin, setOrigin] = useState();
   const [director, setDirector] = useState();
+  const [gener, setGener] = useState();
   const [cast, setCast] = useState();
   const [duration, setDuration] = useState();
   const [rating, setRating] = useState("1");
@@ -48,6 +49,7 @@ const BillboardSearch = () => {
       premiere,
       origin,
       director,
+      gener,
       cast,
       duration,
       rating, // Añadimos la clasificación
@@ -110,6 +112,19 @@ const BillboardSearch = () => {
               placeholder="Director"
               value={director}
               onChange={(e) => setDirector(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gener">
+              Genero
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="gener"
+              type="text"
+              placeholder="Genero"
+              value={gener}
+              onChange={(e) => setGener(e.target.value)}
             />
           </div>
           <div className="mb-4">

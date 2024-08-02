@@ -31,6 +31,10 @@ const BillboardView = () => {
           {customDecodeURIComponent(billboard?.director)}
         </p>
         <p>
+          <strong>Genero:</strong>{" "}
+          {customDecodeURIComponent(billboard?.gener)}
+        </p>
+        <p>
           <strong>Reparto:</strong> {customDecodeURIComponent(billboard?.cast)}
         </p>
         <p>

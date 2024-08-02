@@ -27,6 +27,9 @@ const BillboardEdit = () => {
   const [director, setDirector] = useState(
     customDecodeURIComponent(billboard.director)
   );
+  const [gener, setGener] = useState(
+    customDecodeURIComponent(billboard.gener)
+  );
   const [cast, setCast] = useState(customDecodeURIComponent(billboard.cast));
   const [duration, setDuration] = useState(
     customDecodeURIComponent(billboard.duration)
@@ -80,6 +83,7 @@ const BillboardEdit = () => {
       premiere,
       origin,
       director,
+      gener,
       cast,
       duration,
       cinemas: decodedCinemas,
@@ -150,6 +154,22 @@ const BillboardEdit = () => {
               placeholder="Director"
               value={director}
               onChange={(e) => setDirector(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="gener"
+            >
+              Genero
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="gener"
+              type="text"
+              placeholder="Genero"
+              value={gener}
+              onChange={(e) => setGener(e.target.value)}
             />
           </div>
           <div className="mb-4">
