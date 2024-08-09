@@ -41,6 +41,13 @@ import CustomFieldsView, {
 import BillboardView, { loader as billboardViewLoader } from "./Components/powerups/billboard/View";
 import BillboardSearch from "./Components/powerups/billboard/Search";
 import BillboardEdit, {loader as billboardEditLoader} from "./Components/powerups/billboard/Edit";
+import ScheduleSearch from "./Components/powerups/schedule/Search";
+import ScheduleView, {
+  loader as scheduleViewLoader,
+} from "./Components/powerups/schedule/View";
+import ScheduleEdit, {
+  loader as scheduleEditLoader,
+} from "./Components/powerups/schedule/Edit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,7 +65,7 @@ const router = createBrowserRouter(
         element={<DatafactoryView />}
         loader={viewLoader}
       />
-      {/* Billboard */}
+      {/* Cartelera / Billboard */}
       <Route
         path="billboard/search"
         element={<BillboardSearch />}
@@ -74,7 +81,7 @@ const router = createBrowserRouter(
         element={<BillboardView />}
         loader={billboardViewLoader}
       />
-      {/* Recipe */}
+      {/* Receta / Recipe */}
       <Route
         path="recipe/search"
         element={<RecipeSearch />}
@@ -89,6 +96,22 @@ const router = createBrowserRouter(
         path="recipe/view"
         element={<RecipeView />}
         loader={recipeViewLoader}
+      />
+      {/* Agenda / Schedule */}
+      <Route
+        path="schedule/search"
+        element={<ScheduleSearch />}
+        errorElement={<ErrorPage />}
+      />
+      <Route
+        path="schedule/edit"
+        element={<ScheduleEdit />}
+        loader={scheduleEditLoader}
+      />
+      <Route
+        path="schedule/view"
+        element={<ScheduleView />}
+        loader={scheduleViewLoader}
       />
       {/* Liveblog */}
       <Route
