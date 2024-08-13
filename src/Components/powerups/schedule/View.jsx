@@ -37,7 +37,6 @@ const formatFrequency = (frequency) => {
 
 const ScheduleView = () => {
   const { schedule } = useLoaderData();
-  console.log(schedule,"schedule")
   return (
     <div className="p-4">
       <div className="border p-4 mb-4 rounded shadow-md space-y-3">

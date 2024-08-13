@@ -30,7 +30,15 @@ const ScheduleEdit = () => {
   const [durationMinutes, setDurationMinutes] = useState(schedule.durationMinutes);
   const [price, setPrice] = useState(customDecodeURIComponent(schedule.price));
   const [rating, setRating] = useState(schedule.rating);
-  const [events, setEvents] = useState(schedule.events);
+  const [events, setEvents] = useState(
+    schedule.events.map((event) => ({
+      ...event,
+      showtimes: event.showtimes.map((showtime) =>
+        customDecodeURIComponent(showtime)
+      ),
+      ticketUrl: customDecodeURIComponent(event.ticketUrl),
+    }))
+  );
   const [eventDate, setEventDate] = useState("");
   const [eventShowtimes, setEventShowtimes] = useState("");
   const [eventTicketUrl, setEventTicketUrl] = useState("");
