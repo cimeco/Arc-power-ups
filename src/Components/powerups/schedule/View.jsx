@@ -15,8 +15,29 @@ export const loader = async () => {
   return { schedule };
 };
 
+const formatFrequency = (frequency) => {
+  switch (frequency) {
+    case "P1D":
+      return "Diario";
+      break;
+    case "P1W":
+      return "Semanal";
+      break;
+    case "P1M":
+      return "Mensual";
+      break;
+    case "P1Y":
+      return "Anual";
+      break;
+
+    default:
+      break;
+  }
+}
+
 const ScheduleView = () => {
   const { schedule } = useLoaderData();
+  console.log(schedule,"schedule")
   return (
     <div className="p-4">
       <div className="border p-4 mb-4 rounded shadow-md space-y-3">
@@ -31,6 +52,9 @@ const ScheduleView = () => {
         </p>
         <p>
           <strong>Dirección:</strong> {customDecodeURIComponent(schedule?.address)}
+        </p>
+        <p>
+          <strong>Frecuencia de repetición:</strong> {formatFrequency(schedule?.repeatFrequency)}
         </p>
         <p>
           <strong>Precio:</strong>{" "}

@@ -10,6 +10,9 @@ const ScheduleSearch = () => {
   const [endDate, setEndDate] = useState();
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
+  const [repeatFrequency, setRepeatFrequency] = useState();
+  const [durationHours, setDurationHours] = useState("");
+  const [durationMinutes, setDurationMinutes] = useState("");
   const [price, setPrice] = useState();
   const [rating, setRating] = useState("1");
   const [events, setEvents] = useState([]);
@@ -44,14 +47,21 @@ const ScheduleSearch = () => {
   };
 
   const sendData = () => {
+    const durationISO = `PT${durationHours ? `${durationHours}H` : ""}${
+      durationMinutes ? `${durationMinutes}M` : ""
+    }`;
     const schedule = {
       startDate,
       endDate,
       location,
       address,
+      repeatFrequency,
       price,
-      rating, // Clasificación
+      rating,
       events,
+      durationISO,
+      durationHours,
+      durationMinutes
     };
     const ansCustomEmbed = {
       id: parseQueryString()["k"],
@@ -136,6 +146,51 @@ const ScheduleSearch = () => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="durationHours"
+            >
+              Duración (Horas y Minutos)
+            </label>
+            <div className="flex space-x-2">
+              <input
+                className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="durationHours"
+                type="number"
+                placeholder="Horas"
+                value={durationHours}
+                onChange={(e) => setDurationHours(e.target.value)}
+              />
+              <input
+                className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="durationMinutes"
+                type="number"
+                placeholder="Minutos"
+                value={durationMinutes}
+                onChange={(e) => setDurationMinutes(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="repeatFrecuency"
+            >
+              Frecuencia con la que se repite
+            </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="repeatFrecuency"
+              value={repeatFrequency}
+              onChange={(e) => setRepeatFrequency(e.target.value)}
+            >
+              <option value="P1D">Diario</option>
+              <option value="P1W">Semanal</option>
+              <option value="P1M">Mensual</option>
+              <option value="P1Y">Anual</option>
+            </select>
           </div>
           <div className="mb-4">
             <label
