@@ -53,6 +53,9 @@ const ScheduleView = () => {
           <strong>Dirección:</strong> {customDecodeURIComponent(schedule?.address)}
         </p>
         <p>
+          <strong>Tipo de evento:</strong> {customDecodeURIComponent(schedule?.typeEvent)}
+        </p>
+        <p>
           <strong>Frecuencia de repetición:</strong> {formatFrequency(schedule?.repeatFrequency)}
         </p>
         <p>

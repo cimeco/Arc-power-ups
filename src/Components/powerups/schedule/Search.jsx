@@ -13,6 +13,7 @@ const ScheduleSearch = () => {
   const [repeatFrequency, setRepeatFrequency] = useState();
   const [durationHours, setDurationHours] = useState("");
   const [durationMinutes, setDurationMinutes] = useState("");
+  const [typeEvent, setTypeEvent] = useState("");
   const [price, setPrice] = useState();
   const [rating, setRating] = useState("1");
   const [events, setEvents] = useState([]);
@@ -56,6 +57,7 @@ const ScheduleSearch = () => {
       location,
       address,
       repeatFrequency,
+      typeEvent,
       price,
       rating,
       events,
@@ -145,6 +147,22 @@ const ScheduleSearch = () => {
               placeholder="Dirección"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="typeEvent"
+            >
+              Tipo de Evento
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="typeEvent"
+              type="text"
+              placeholder="Comedia, Teatro, etc"
+              value={typeEvent}
+              onChange={(e) => setTypeEvent(e.target.value)}
             />
           </div>
           <div className="mb-4">

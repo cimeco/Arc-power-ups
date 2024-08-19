@@ -28,6 +28,7 @@ const ScheduleEdit = () => {
   const [repeatFrequency, setRepeatFrequency] = useState(schedule.repeatFrequency);
   const [durationHours, setDurationHours] = useState(schedule.durationHours);
   const [durationMinutes, setDurationMinutes] = useState(schedule.durationMinutes);
+  const [typeEvent, setTypeEvent] = useState(customDecodeURIComponent(schedule.typeEvent))
   const [price, setPrice] = useState(customDecodeURIComponent(schedule.price));
   const [rating, setRating] = useState(schedule.rating);
   const [events, setEvents] = useState(
@@ -80,6 +81,7 @@ const ScheduleEdit = () => {
       address,
       repeatFrequency,
       price,
+      typeEvent,
       rating,
       events,
       durationISO,
@@ -168,6 +170,22 @@ const ScheduleEdit = () => {
               placeholder="Dirección"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="address"
+            >
+              Tipo de evento
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="address"
+              type="text"
+              placeholder="Comedia, teatro, etc"
+              value={typeEvent}
+              onChange={(e) => setTypeEvent(e.target.value)}
             />
           </div>
           <div className="mb-4">
