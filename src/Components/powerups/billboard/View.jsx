@@ -19,6 +19,7 @@ const BillboardView = () => {
   const { billboard } = useLoaderData();
   return (
     <div className="p-4">
+      <h1 className="bold text-2xl mb-4 ml-4">Cartelera</h1>
       <div className="border p-4 mb-4 rounded shadow-md space-y-3">
         <p>
           <strong>Estreno:</strong> {billboard?.premiere}

@@ -19,19 +19,14 @@ const formatFrequency = (frequency) => {
   switch (frequency) {
     case "P1D":
       return "Diario";
-      break;
     case "P1W":
       return "Semanal";
-      break;
     case "P1M":
       return "Mensual";
-      break;
     case "P1Y":
       return "Anual";
-      break;
-
     default:
-      break;
+      return "No especificada";
   }
 }
 
@@ -39,6 +34,8 @@ const ScheduleView = () => {
   const { schedule } = useLoaderData();
   return (
     <div className="p-4">
+      <h1 className="bold text-2xl mb-4 ml-2">Agenda</h1>
+      
       <div className="border p-4 mb-4 rounded shadow-md space-y-3">
         <p>
           <strong>Desde:</strong> {schedule?.startDate}
@@ -59,12 +56,13 @@ const ScheduleView = () => {
           <strong>Frecuencia de repetición:</strong> {formatFrequency(schedule?.repeatFrequency)}
         </p>
         <p>
-          <strong>Precio:</strong>{" "}
-          {customDecodeURIComponent(schedule?.price)}
+          <strong>Precio desde:</strong> {customDecodeURIComponent(schedule?.priceFrom)}
         </p>
         <p>
-          <strong>Clasificación:</strong>{" "}
-          {customDecodeURIComponent(schedule?.rating)}
+          <strong>Precio hasta:</strong> {customDecodeURIComponent(schedule?.priceTo)}
+        </p>
+        <p>
+          <strong>Clasificación:</strong> {customDecodeURIComponent(schedule?.rating)}
         </p>
         <div>
           <h3 className="font-bold">Funciones y horarios:</h3>

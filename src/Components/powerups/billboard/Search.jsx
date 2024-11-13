@@ -12,6 +12,8 @@ const BillboardSearch = () => {
   const [genre, setGenre] = useState();
   const [cast, setCast] = useState();
   const [duration, setDuration] = useState();
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
   const [rating, setRating] = useState("1");
   const [cinemas, setCinemas] = useState([]);
   const [cinemaName, setCinemaName] = useState("");
@@ -52,8 +54,10 @@ const BillboardSearch = () => {
       genre,
       cast,
       duration,
-      rating, // Añadimos la clasificación
-      cinemas
+      priceFrom,
+      priceTo,
+      rating,
+      cinemas,
     };
     const ansCustomEmbed = {
       id: parseQueryString()["k"],
@@ -73,6 +77,7 @@ const BillboardSearch = () => {
 
   return (
     <div className="w-full">
+      <h1 className="bold text-2xl mb-4 ml-2">Cartelera</h1>
       <form className="rounded mb-4 flex" onSubmit={(e) => e.preventDefault()}>
         <div className="w-1/2 p-2">
           <div className="mb-4">
@@ -154,6 +159,32 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceFrom">
+              Precio desde
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="priceFrom"
+              type="number"
+              placeholder="Precio mínimo"
+              value={priceFrom}
+              onChange={(e) => setPriceFrom(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceTo">
+              Precio hasta
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="priceTo"
+              type="number"
+              placeholder="Precio máximo"
+              value={priceTo}
+              onChange={(e) => setPriceTo(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="rating">
               Clasificación
             </label>
@@ -163,6 +194,7 @@ const BillboardSearch = () => {
               value={rating}
               onChange={(e) => setRating(e.target.value)}
             >
+              <option value="0">Sin clasificación</option>
               <option value="1">1</option>
               <option value="1.5">1.5</option>
               <option value="2">2</option>
@@ -237,13 +269,13 @@ const BillboardSearch = () => {
               Agregar lugar
             </button>
             <div className="flex justify-end mt-3 mb-10">
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={sendData}
-            >
-              Enviar
-            </button>
-          </div>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={sendData}
+              >
+                Enviar
+              </button>
+            </div>
           </div>
         </div>
       </form>
