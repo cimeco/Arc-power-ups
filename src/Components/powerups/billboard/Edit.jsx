@@ -21,14 +21,26 @@ const BillboardEdit = () => {
   registerLocale("es", es);
   const { billboard } = useLoaderData();
   const [premiere, setPremiere] = useState(billboard.premiere);
-  const [origin, setOrigin] = useState(customDecodeURIComponent(billboard.origin));
-  const [director, setDirector] = useState(customDecodeURIComponent(billboard.director));
+  const [origin, setOrigin] = useState(
+    customDecodeURIComponent(billboard.origin)
+  );
+  const [director, setDirector] = useState(
+    customDecodeURIComponent(billboard.director)
+  );
   const [genre, setGenre] = useState(customDecodeURIComponent(billboard.genre));
   const [cast, setCast] = useState(customDecodeURIComponent(billboard.cast));
-  const [duration, setDuration] = useState(customDecodeURIComponent(billboard.duration));
-  const [priceFrom, setPriceFrom] = useState(customDecodeURIComponent(billboard.priceFrom));
-  const [priceTo, setPriceTo] = useState(customDecodeURIComponent(billboard.priceTo));
-  const [rating, setRating] = useState(customDecodeURIComponent(billboard.rating));
+  const [duration, setDuration] = useState(
+    customDecodeURIComponent(billboard.duration)
+  );
+  const [priceFrom, setPriceFrom] = useState(
+    customDecodeURIComponent(billboard.priceFrom)
+  );
+  const [priceTo, setPriceTo] = useState(
+    customDecodeURIComponent(billboard.priceTo)
+  );
+  const [rating, setRating] = useState(
+    customDecodeURIComponent(billboard.rating)
+  );
   const [cinemas, setCinemas] = useState(billboard.cinemas);
   const [cinemaName, setCinemaName] = useState("");
   const [cinemaShowtimes, setCinemaShowtimes] = useState("");
@@ -65,7 +77,9 @@ const BillboardEdit = () => {
 
     const decodedCinemas = cinemas.map((cinema) => ({
       name: customDecodeURIComponent(cinema.name),
-      showtimes: cinema.showtimes.map((showtime) => customDecodeURIComponent(showtime)),
+      showtimes: cinema.showtimes.map((showtime) =>
+        customDecodeURIComponent(showtime)
+      ),
       ticketUrl: customDecodeURIComponent(cinema.ticketUrl),
     }));
 
@@ -102,7 +116,10 @@ const BillboardEdit = () => {
       <form className="rounded mb-4 flex" onSubmit={(e) => e.preventDefault()}>
         <div className="w-1/2 p-2">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="premier">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="premier"
+            >
               Estreno
             </label>
             <input
@@ -115,7 +132,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="origin">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="origin"
+            >
               Origen
             </label>
             <input
@@ -128,7 +148,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="director">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="director"
+            >
               Director
             </label>
             <input
@@ -141,20 +164,26 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="genre">
-              Genero
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="genre"
+            >
+              Género
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="genre"
               type="text"
-              placeholder="Genero"
+              placeholder="Género"
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cast">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cast"
+            >
               Reparto
             </label>
             <input
@@ -167,7 +196,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="duration">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="duration"
+            >
               Duración
             </label>
             <input
@@ -180,7 +212,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceFrom">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceFrom"
+            >
               Precio desde
             </label>
             <input
@@ -193,7 +228,10 @@ const BillboardEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceTo">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceTo"
+            >
               Precio hasta
             </label>
             <input
@@ -205,8 +243,15 @@ const BillboardEdit = () => {
               onChange={(e) => setPriceTo(e.target.value)}
             />
           </div>
+          <p className="text-sm text-gray-500 mb-4">
+            Nota: Si solo se completa "Precio desde", se mostrará como "Precio:"
+            seguido del valor.
+          </p>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="rating">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="rating"
+            >
               Clasificación
             </label>
             <select
@@ -254,7 +299,10 @@ const BillboardEdit = () => {
             </div>
           ))}
           <div className="mt-3">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cinemaName">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cinemaName"
+            >
               Nombre del lugar
             </label>
             <input
@@ -265,7 +313,10 @@ const BillboardEdit = () => {
               value={cinemaName}
               onChange={(e) => setCinemaName(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaShowtimes">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="cinemaShowtimes"
+            >
               Horarios (separados por coma)
             </label>
             <input
@@ -276,7 +327,10 @@ const BillboardEdit = () => {
               value={cinemaShowtimes}
               onChange={(e) => setCinemaShowtimes(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaTicketUrl">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="cinemaTicketUrl"
+            >
               URL para compra de entradas
             </label>
             <input

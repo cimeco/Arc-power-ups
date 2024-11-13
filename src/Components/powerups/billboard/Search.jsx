@@ -81,7 +81,10 @@ const BillboardSearch = () => {
       <form className="rounded mb-4 flex" onSubmit={(e) => e.preventDefault()}>
         <div className="w-1/2 p-2">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="premier">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="premier"
+            >
               Estreno
             </label>
             <input
@@ -94,7 +97,10 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="origin">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="origin"
+            >
               Origen
             </label>
             <input
@@ -107,7 +113,10 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="director">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="director"
+            >
               Director
             </label>
             <input
@@ -120,7 +129,10 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="genre">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="genre"
+            >
               Genero
             </label>
             <input
@@ -133,7 +145,10 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cast">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cast"
+            >
               Reparto
             </label>
             <input
@@ -146,7 +161,10 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="duration">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="duration"
+            >
               Duración
             </label>
             <input
@@ -159,7 +177,10 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceFrom">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceFrom"
+            >
               Precio desde
             </label>
             <input
@@ -172,7 +193,10 @@ const BillboardSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceTo">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceTo"
+            >
               Precio hasta
             </label>
             <input
@@ -184,8 +208,15 @@ const BillboardSearch = () => {
               onChange={(e) => setPriceTo(e.target.value)}
             />
           </div>
+          <p className="text-sm text-gray-500 mb-4">
+            Nota: Si solo se completa "Precio desde", se mostrará como "Precio:"
+            seguido del valor.
+          </p>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="rating">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="rating"
+            >
               Clasificación
             </label>
             <select
@@ -212,7 +243,9 @@ const BillboardSearch = () => {
           {cinemas.map((cinema, index) => (
             <div key={index} className="rounded-lg bg-white p-3 mt-2">
               <h4 className="font-medium">{cinema.name}</h4>
-              <p className="text-muted-foreground">{cinema.showtimes.join(", ")}</p>
+              <p className="text-muted-foreground">
+                {cinema.showtimes.join(", ")}
+              </p>
               <p className="text-muted-foreground">{cinema.ticketUrl}</p>
               <button
                 className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
@@ -229,7 +262,10 @@ const BillboardSearch = () => {
             </div>
           ))}
           <div className="mt-3">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cinemaName">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cinemaName"
+            >
               Nombre del lugar
             </label>
             <input
@@ -240,7 +276,10 @@ const BillboardSearch = () => {
               value={cinemaName}
               onChange={(e) => setCinemaName(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaShowtimes">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="cinemaShowtimes"
+            >
               Horarios (separados por coma)
             </label>
             <input
@@ -251,7 +290,10 @@ const BillboardSearch = () => {
               value={cinemaShowtimes}
               onChange={(e) => setCinemaShowtimes(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="cinemaTicketUrl">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="cinemaTicketUrl"
+            >
               URL para compra de entradas
             </label>
             <input
