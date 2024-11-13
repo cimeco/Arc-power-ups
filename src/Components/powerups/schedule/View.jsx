@@ -35,7 +35,7 @@ const ScheduleView = () => {
   return (
     <div className="p-4">
       <h1 className="bold text-2xl mb-4 ml-2">Agenda</h1>
-      
+
       <div className="border p-4 mb-4 rounded shadow-md space-y-3">
         <p>
           <strong>Desde:</strong> {schedule?.startDate}

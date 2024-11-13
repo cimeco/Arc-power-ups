@@ -14,10 +14,9 @@ const ScheduleSearch = () => {
   const [durationHours, setDurationHours] = useState("");
   const [durationMinutes, setDurationMinutes] = useState("");
   const [typeEvent, setTypeEvent] = useState("");
-  const [price, setPrice] = useState();
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
-  const [rating, setRating] = useState("1");
+  const [rating, setRating] = useState("0");
   const [events, setEvents] = useState([]);
   const [eventDate, setEventDate] = useState("");
   const [eventShowtimes, setEventShowtimes] = useState("");
@@ -60,7 +59,6 @@ const ScheduleSearch = () => {
       address,
       repeatFrequency,
       typeEvent,
-      price,
       priceFrom,
       priceTo,
       rating,
@@ -91,7 +89,10 @@ const ScheduleSearch = () => {
       <form className="rounded mb-4 flex" onSubmit={(e) => e.preventDefault()}>
         <div className="w-1/2 p-2">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="startDate">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="startDate"
+            >
               Desde
             </label>
             <input
@@ -104,7 +105,10 @@ const ScheduleSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="endDate">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="endDate"
+            >
               Hasta
             </label>
             <input
@@ -117,7 +121,10 @@ const ScheduleSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="location"
+            >
               Lugar
             </label>
             <input
@@ -130,7 +137,10 @@ const ScheduleSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="address"
+            >
               Dirección
             </label>
             <input
@@ -143,7 +153,10 @@ const ScheduleSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="typeEvent">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="typeEvent"
+            >
               Tipo de Evento
             </label>
             <input
@@ -156,7 +169,10 @@ const ScheduleSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="durationHours">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="durationHours"
+            >
               Duración (Horas y Minutos)
             </label>
             <div className="flex space-x-2">
@@ -179,7 +195,10 @@ const ScheduleSearch = () => {
             </div>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="repeatFrequency">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="repeatFrequency"
+            >
               Frecuencia con la que se repite
             </label>
             <select
@@ -195,7 +214,10 @@ const ScheduleSearch = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceFrom">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceFrom"
+            >
               Precio desde
             </label>
             <input
@@ -208,7 +230,10 @@ const ScheduleSearch = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceTo">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceTo"
+            >
               Precio hasta
             </label>
             <input
@@ -220,8 +245,15 @@ const ScheduleSearch = () => {
               onChange={(e) => setPriceTo(e.target.value)}
             />
           </div>
+          <p className="text-sm text-gray-500 mb-4">
+            Nota: Si solo se completa "Precio desde", se mostrará como "Precio:"
+            seguido del valor.
+          </p>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="rating">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="rating"
+            >
               Clasificación
             </label>
             <select
@@ -248,7 +280,9 @@ const ScheduleSearch = () => {
           {events.map((event, index) => (
             <div key={index} className="rounded-lg bg-white p-3 mt-2">
               <h4 className="font-medium">{event.date}</h4>
-              <p className="text-muted-foreground">{event.showtimes.join(", ")}</p>
+              <p className="text-muted-foreground">
+                {event.showtimes.join(", ")}
+              </p>
               <p className="text-muted-foreground">{event.ticketUrl}</p>
               <button
                 className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
@@ -265,7 +299,10 @@ const ScheduleSearch = () => {
             </div>
           ))}
           <div className="mt-3">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="eventDate">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="eventDate"
+            >
               Fecha del evento
             </label>
             <input
@@ -276,7 +313,10 @@ const ScheduleSearch = () => {
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="eventShowtimes">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="eventShowtimes"
+            >
               Horarios (separados por coma)
             </label>
             <input
@@ -287,7 +327,10 @@ const ScheduleSearch = () => {
               value={eventShowtimes}
               onChange={(e) => setEventShowtimes(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="eventTicketUrl">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="eventTicketUrl"
+            >
               URL para compra de entradas
             </label>
             <input

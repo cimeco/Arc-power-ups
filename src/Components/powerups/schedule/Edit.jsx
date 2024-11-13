@@ -23,19 +23,35 @@ const ScheduleEdit = () => {
   registerLocale("es", es);
   const [startDate, setStartDate] = useState(schedule.startDate);
   const [endDate, setEndDate] = useState(schedule.endDate);
-  const [location, setLocation] = useState(customDecodeURIComponent(schedule.location));
-  const [address, setAddress] = useState(customDecodeURIComponent(schedule.address));
-  const [repeatFrequency, setRepeatFrequency] = useState(schedule.repeatFrequency);
+  const [location, setLocation] = useState(
+    customDecodeURIComponent(schedule.location)
+  );
+  const [address, setAddress] = useState(
+    customDecodeURIComponent(schedule.address)
+  );
+  const [repeatFrequency, setRepeatFrequency] = useState(
+    schedule.repeatFrequency
+  );
   const [durationHours, setDurationHours] = useState(schedule.durationHours);
-  const [durationMinutes, setDurationMinutes] = useState(schedule.durationMinutes);
-  const [typeEvent, setTypeEvent] = useState(customDecodeURIComponent(schedule.typeEvent));
-  const [priceFrom, setPriceFrom] = useState(customDecodeURIComponent(schedule.priceFrom));
-  const [priceTo, setPriceTo] = useState(customDecodeURIComponent(schedule.priceTo));
+  const [durationMinutes, setDurationMinutes] = useState(
+    schedule.durationMinutes
+  );
+  const [typeEvent, setTypeEvent] = useState(
+    customDecodeURIComponent(schedule.typeEvent)
+  );
+  const [priceFrom, setPriceFrom] = useState(
+    customDecodeURIComponent(schedule.priceFrom)
+  );
+  const [priceTo, setPriceTo] = useState(
+    customDecodeURIComponent(schedule.priceTo)
+  );
   const [rating, setRating] = useState(schedule.rating);
   const [events, setEvents] = useState(
     schedule.events.map((event) => ({
       ...event,
-      showtimes: event.showtimes.map((showtime) => customDecodeURIComponent(showtime)),
+      showtimes: event.showtimes.map((showtime) =>
+        customDecodeURIComponent(showtime)
+      ),
       ticketUrl: customDecodeURIComponent(event.ticketUrl),
     }))
   );
@@ -70,7 +86,9 @@ const ScheduleEdit = () => {
   };
 
   const sendData = () => {
-    const durationISO = `PT${durationHours ? `${durationHours}H` : ""}${durationMinutes ? `${durationMinutes}M` : ""}`;
+    const durationISO = `PT${durationHours ? `${durationHours}H` : ""}${
+      durationMinutes ? `${durationMinutes}M` : ""
+    }`;
     const schedule = {
       startDate,
       endDate,
@@ -108,7 +126,10 @@ const ScheduleEdit = () => {
       <form className="rounded mb-4 flex" onSubmit={(e) => e.preventDefault()}>
         <div className="w-1/2 p-2">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="startDate">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="startDate"
+            >
               Desde
             </label>
             <input
@@ -121,7 +142,10 @@ const ScheduleEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="endDate">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="endDate"
+            >
               Hasta
             </label>
             <input
@@ -134,7 +158,10 @@ const ScheduleEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="location"
+            >
               Lugar
             </label>
             <input
@@ -147,7 +174,10 @@ const ScheduleEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="address"
+            >
               Dirección
             </label>
             <input
@@ -160,7 +190,10 @@ const ScheduleEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="typeEvent">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="typeEvent"
+            >
               Tipo de evento
             </label>
             <input
@@ -173,7 +206,10 @@ const ScheduleEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="durationHours">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="durationHours"
+            >
               Duración (Horas y Minutos)
             </label>
             <div className="flex space-x-2">
@@ -196,7 +232,10 @@ const ScheduleEdit = () => {
             </div>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="repeatFrequency">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="repeatFrequency"
+            >
               Frecuencia con la que se repite
             </label>
             <select
@@ -212,7 +251,10 @@ const ScheduleEdit = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceFrom">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceFrom"
+            >
               Precio desde
             </label>
             <input
@@ -225,7 +267,10 @@ const ScheduleEdit = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priceTo">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="priceTo"
+            >
               Precio hasta
             </label>
             <input
@@ -237,8 +282,15 @@ const ScheduleEdit = () => {
               onChange={(e) => setPriceTo(e.target.value)}
             />
           </div>
+          <p className="text-sm text-gray-500 mb-4">
+            Nota: Si solo se completa "Precio desde", se mostrará como "Precio:"
+            seguido del valor.
+          </p>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="rating">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="rating"
+            >
               Clasificación
             </label>
             <select
@@ -265,7 +317,9 @@ const ScheduleEdit = () => {
           {events.map((event, index) => (
             <div key={index} className="rounded-lg bg-white p-3 mt-2">
               <h4 className="font-medium">{event.date}</h4>
-              <p className="text-muted-foreground">{event.showtimes.join(", ")}</p>
+              <p className="text-muted-foreground">
+                {event.showtimes.join(", ")}
+              </p>
               <p className="text-muted-foreground">{event.ticketUrl}</p>
               <button
                 className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
@@ -282,7 +336,10 @@ const ScheduleEdit = () => {
             </div>
           ))}
           <div className="mt-3">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="eventDate">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="eventDate"
+            >
               Fecha del evento
             </label>
             <input
@@ -293,7 +350,10 @@ const ScheduleEdit = () => {
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="eventShowtimes">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="eventShowtimes"
+            >
               Horarios (separados por coma)
             </label>
             <input
@@ -304,7 +364,10 @@ const ScheduleEdit = () => {
               value={eventShowtimes}
               onChange={(e) => setEventShowtimes(e.target.value)}
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="eventTicketUrl">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+              htmlFor="eventTicketUrl"
+            >
               URL para compra de entradas
             </label>
             <input
